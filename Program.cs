@@ -13,6 +13,8 @@ builder.Services.AddScoped<ICompaniaRepository, CompaniaRepository>(provider =>
 new CompaniaRepository(connectionString));
 builder.Services.AddScoped<IGeneroRepository, GeneroRepository>(provider =>
 new GeneroRepository(connectionString));
+builder.Services.AddScoped<IPlataformaRepository, PlataformaRepository>(provider =>
+new PlataformaRepository(connectionString));
 
 builder.Services.AddControllers();
 
@@ -24,6 +26,7 @@ builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IComentarioService, ComentarioService>();
 builder.Services.AddScoped<ICompaniaService, CompaniaService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
+builder.Services.AddScoped<IPlataformaService, PlataformaService>();
 
 var app = builder.Build();
 
