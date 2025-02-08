@@ -1,17 +1,17 @@
-//using CineApi.Repositories;
-//using CineApi.Service;
+using Videojuegos.Repositories;
+using Videojuegos.Service;
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("RestauranteDB");
+var connectionString = builder.Configuration.GetConnectionString("VideojuegosDB");
 
-//builder.Services.AddScoped<IPeliculaRepository, PeliculaRepository>(provider =>
-//new PeliculaRepository(connectionString));
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(provider =>
+new UsuarioRepository(connectionString));
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddScoped<IPeliculaService, PeliculaService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 
