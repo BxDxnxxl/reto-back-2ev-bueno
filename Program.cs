@@ -15,6 +15,8 @@ builder.Services.AddScoped<IGeneroRepository, GeneroRepository>(provider =>
 new GeneroRepository(connectionString));
 builder.Services.AddScoped<IPlataformaRepository, PlataformaRepository>(provider =>
 new PlataformaRepository(connectionString));
+builder.Services.AddScoped<IVideojuegoRepository, VideojuegoRepository>(provider =>
+new VideojuegoRepository(connectionString));
 
 builder.Services.AddControllers();
 
@@ -27,6 +29,7 @@ builder.Services.AddScoped<IComentarioService, ComentarioService>();
 builder.Services.AddScoped<ICompaniaService, CompaniaService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPlataformaService, PlataformaService>();
+builder.Services.AddScoped<IVideojuegoService, VideojuegoService>();
 
 var app = builder.Build();
 
