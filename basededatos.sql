@@ -5,7 +5,10 @@ CREATE TABLE Usuarios (
     id INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(50) UNIQUE NOT NULL,
     email NVARCHAR(100) UNIQUE NOT NULL,
-    contraseña NVARCHAR(255) NOT NULL
+    contraseña NVARCHAR(255) NOT NULL,
+    nombre NVARCHAR(30),
+    apellido1 NVARCHAR(30),
+    apellido2 NVARCHAR(30)
 );
 
 CREATE TABLE Roles (
@@ -39,7 +42,10 @@ CREATE TABLE Plataformas (
 CREATE TABLE Videojuegos (
     id INT IDENTITY(1,1) PRIMARY KEY,
     titulo NVARCHAR(100) NOT NULL,
-    descripcion NVARCHAR(500)
+    descripcion NVARCHAR(500),
+    anioSalida DATE not null,
+    pegi INT,
+    caratula NVARCHAR(50)
 );
 
 CREATE TABLE VideojuegoCompania (
@@ -70,8 +76,13 @@ CREATE TABLE Comentarios (
     id INT IDENTITY(1,1) PRIMARY KEY,
     fkIdUsuario INT NOT NULL,
     fkIdVideojuego INT NOT NULL,
+    titulo NVARCHAR(100) NOT NULL,
     texto NVARCHAR(500) NOT NULL,
     fecha DATETIME DEFAULT GETDATE(),
+    valoracion INT NOT NULL CHECK (valoracion BETWEEN 1 AND 10),
+    likes INT NOT NULL DEFAULT 0,
+    dislikes INT NOT NULL DEFAULT 0,
     FOREIGN KEY (fkIdUsuario) REFERENCES Usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (fkIdVideojuego) REFERENCES Videojuegos(id) ON DELETE CASCADE
 );
+
