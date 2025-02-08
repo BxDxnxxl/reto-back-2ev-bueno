@@ -7,6 +7,11 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(provider =>
 new UsuarioRepository(connectionString));
 builder.Services.AddScoped<IRolRepository, RolRepository>(provider =>
 new RolRepository(connectionString));
+builder.Services.AddScoped<IComentarioRepository, ComentarioRepository>(provider =>
+new ComentarioRepository(connectionString));
+builder.Services.AddScoped<ICompaniaRepository, CompaniaRepository>(provider =>
+new CompaniaRepository(connectionString));
+
 
 builder.Services.AddControllers();
 
@@ -15,6 +20,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IComentarioService, ComentarioService>();
+builder.Services.AddScoped<ICompaniaService, CompaniaService>();
 
 var app = builder.Build();
 
