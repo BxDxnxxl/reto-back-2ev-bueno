@@ -2,6 +2,7 @@ using Microsoft.Data.SqlClient;
 using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Videojuegos.DTOs;
 
 namespace Videojuegos.Repositories
 {
@@ -127,6 +128,98 @@ namespace Videojuegos.Repositories
                     await command.ExecuteNonQueryAsync();
                 }
             }
+        }
+
+        //función que coge los detalles del videojuego en base a un DTO
+        public async Task<VideojuegoDetalleDto?> GetDetalleByIdAsync(int id)
+        {
+            VideojuegoDetalleDto? detalle = null;
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT v.Titulo, v.Descripcion, v.AnioSalida, v.Pegi, v.Caratula, c.Nombre AS Compania,
+                        (SELECT AVG(CAST(valoracion AS FLOAT)) FROM Comentarios WHERE fkIdVideojuego = v.Id) AS ValoracionPromedio
+                    FROM Videojuegos v
+                    JOIN Companias c ON v.fkIdCompania = c.Id
+                    WHERE v.Id = @Id";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            detalle = new VideojuegoDetalleDto
+                            {
+                                Titulo = reader.GetString(0),
+                                Descripcion = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                                AnioSalida = reader.GetDateTime(2),
+                                Pegi = reader.IsDBNull(3) ? null : reader.GetInt32(3),
+                                Caratula = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                Compania = reader.GetString(5),
+                                ValoracionPromedio = reader.IsDBNull(6) ? 0 : reader.GetDouble(6)
+                            };
+                        }
+                    }
+                }
+
+                if (detalle != null)
+                {
+                    detalle.Generos = await GetGenerosByVideojuegoIdAsync(id, connection);
+                    detalle.Plataformas = await GetPlataformasByVideojuegoIdAsync(id, connection);
+                }
+            }
+            return detalle;
+        }
+
+
+        //función que coge todos los géneros de un videojuego en base al id del juego
+        private async Task<List<string>> GetGenerosByVideojuegoIdAsync(int id, SqlConnection connection)
+        {
+            var generos = new List<string>();
+            string query = @"
+                SELECT g.Nombre FROM Generos g
+                JOIN VideojuegoGenero vg ON g.Id = vg.fkIdGenero
+                WHERE vg.fkIdVideojuego = @Id";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Id", id);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        generos.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return generos;
+        }
+
+        //función que coge todos las plataformas en las que se encuentra disponible un videojuego en base al id del juego
+        private async Task<List<string>> GetPlataformasByVideojuegoIdAsync(int id, SqlConnection connection)
+        {
+            var plataformas = new List<string>();
+            string query = @"
+                SELECT p.Nombre FROM Plataformas p
+                JOIN VideojuegoPlataforma vp ON p.Id = vp.fkIdPlataforma
+                WHERE vp.fkIdVideojuego = @Id";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Id", id);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        plataformas.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return plataformas;
         }
     }
 }
