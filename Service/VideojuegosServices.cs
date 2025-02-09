@@ -2,6 +2,7 @@ using Models;
 using Videojuegos.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Videojuegos.DTOs;
 
 namespace Videojuegos.Service
 {
@@ -37,6 +38,16 @@ namespace Videojuegos.Service
         public async Task DeleteAsync(int id)
         {
             await _videojuegoRepository.DeleteAsync(id);
+        }
+
+        public async Task<VideojuegoDetalleDto?> GetDetalleByIdAsync(int id)
+        {
+            return await _videojuegoRepository.GetDetalleByIdAsync(id);
+        }
+
+        public async Task<List<Videojuego>> FiltrarVideojuegosAsync(string? compania, string? genero, string? plataforma)
+        {
+            return await _videojuegoRepository.FiltrarVideojuegosAsync(compania, genero, plataforma);
         }
     }
 }

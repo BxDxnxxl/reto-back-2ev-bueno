@@ -1,6 +1,7 @@
 using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Videojuegos.DTOs;
 
 namespace Videojuegos.Service
 {
@@ -11,5 +12,8 @@ namespace Videojuegos.Service
         Task AddAsync(Videojuego videojuego);
         Task UpdateAsync(Videojuego videojuego);
         Task DeleteAsync(int id);
+        Task<VideojuegoDetalleDto?> GetDetalleByIdAsync(int id);
+        Task<List<Videojuego>> FiltrarVideojuegosAsync(string? compania, string? genero, string? plataforma);
+
     }
 }
