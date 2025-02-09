@@ -68,5 +68,12 @@ namespace Videojuegos.Controllers
             if (detalle == null) return NotFound();
             return Ok(detalle);
         }
+
+        [HttpGet("filtrar")]
+        public async Task<ActionResult<List<Videojuego>>> FiltrarVideojuegos([FromQuery] string? compania, [FromQuery] string? genero, [FromQuery] string? plataforma)
+        {
+            var videojuegos = await _service.FiltrarVideojuegosAsync(compania, genero, plataforma);
+            return Ok(videojuegos);
+        }
     }
 }

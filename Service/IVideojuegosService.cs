@@ -13,5 +13,7 @@ namespace Videojuegos.Service
         Task UpdateAsync(Videojuego videojuego);
         Task DeleteAsync(int id);
         Task<VideojuegoDetalleDto?> GetDetalleByIdAsync(int id);
+        Task<List<Videojuego>> FiltrarVideojuegosAsync(string? compania, string? genero, string? plataforma);
+
     }
 }

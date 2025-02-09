@@ -221,5 +221,53 @@ namespace Videojuegos.Repositories
             }
             return plataformas;
         }
+
+        public async Task<List<Videojuego>> FiltrarVideojuegosAsync(string? compania, string? genero, string? plataforma)
+        {
+            var videojuegos = new List<Videojuego>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = @"
+                    SELECT DISTINCT v.Id, v.Titulo, v.Descripcion, v.AnioSalida, v.Pegi, v.Caratula
+                    FROM Videojuegos v
+                    JOIN Companias c ON v.fkIdCompania = c.Id
+                    LEFT JOIN VideojuegoGenero vg ON v.Id = vg.fkIdVideojuego
+                    LEFT JOIN Generos g ON vg.fkIdGenero = g.Id
+                    LEFT JOIN VideojuegoPlataforma vp ON v.Id = vp.fkIdVideojuego
+                    LEFT JOIN Plataformas p ON vp.fkIdPlataforma = p.Id
+                    WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(compania)) query += " AND c.Nombre RLIKE @Compania";
+                if (!string.IsNullOrEmpty(genero)) query += " AND g.Nombre RLIKE @Genero";
+                if (!string.IsNullOrEmpty(plataforma)) query += " AND p.Nombre RLIKE @Plataforma";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    if (!string.IsNullOrEmpty(compania)) command.Parameters.AddWithValue("@Compania", compania);
+                    if (!string.IsNullOrEmpty(genero)) command.Parameters.AddWithValue("@Genero", genero);
+                    if (!string.IsNullOrEmpty(plataforma)) command.Parameters.AddWithValue("@Plataforma", plataforma);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            videojuegos.Add(new Videojuego
+                            {
+                                Id = reader.GetInt32(0),
+                                Titulo = reader.GetString(1),
+                                Descripcion = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                                AnioSalida = reader.GetDateTime(3),
+                                Pegi = reader.IsDBNull(4) ? null : reader.GetInt32(4),
+                                Caratula = reader.IsDBNull(5) ? null : reader.GetString(5)
+                            });
+                        }
+                    }
+                }
+            }
+            return videojuegos;
+        }
     }
 }

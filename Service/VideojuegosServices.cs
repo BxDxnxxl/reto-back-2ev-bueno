@@ -44,5 +44,10 @@ namespace Videojuegos.Service
         {
             return await _videojuegoRepository.GetDetalleByIdAsync(id);
         }
+
+        public async Task<List<Videojuego>> FiltrarVideojuegosAsync(string? compania, string? genero, string? plataforma)
+        {
+            return await _videojuegoRepository.FiltrarVideojuegosAsync(compania, genero, plataforma);
+        }
     }
 }
