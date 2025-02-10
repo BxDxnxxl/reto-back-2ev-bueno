@@ -38,5 +38,10 @@ namespace Videojuegos.Service
         {
             await _usuarioRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Usuario>> GetUsuariosByNombreAsync(string nombre)
+        {
+            return await _usuarioRepository.GetUsuariosByNombreAsync(nombre);
+        }
     }
 }

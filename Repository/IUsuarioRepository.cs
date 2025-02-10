@@ -11,5 +11,6 @@ namespace Videojuegos.Repositories
         Task AddAsync(Usuario usuario);
         Task UpdateAsync(Usuario usuario);
         Task DeleteAsync(int id);
+        Task <List<Usuario>> GetUsuariosByNombreAsync(string nombre);
     }
 }
