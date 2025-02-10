@@ -64,5 +64,12 @@ namespace Videojuegos.Controllers
             await _service.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("buscar")]
+        public async Task<ActionResult<List<Usuario>>> GetUsuariosByNombre([FromQuery] string nombre)
+        {
+            var usuarios = await _service.GetUsuariosByNombreAsync(nombre);
+            return Ok(usuarios);
+        }
     }
 }
