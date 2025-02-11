@@ -1,4 +1,4 @@
-namespace Videojuegos.DTOs;
+namespace Models;
 
 public class VideojuegoDetalleDto
 {
