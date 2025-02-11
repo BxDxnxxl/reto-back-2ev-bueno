@@ -75,5 +75,12 @@ namespace Videojuegos.Controllers
             var videojuegos = await _service.FiltrarVideojuegosAsync(compania, genero, plataforma);
             return Ok(videojuegos);
         }
+
+        [HttpGet("buscar")]
+        public async Task<ActionResult<List<Videojuego>>> BuscarVideojuegos([FromQuery] string filtro)
+        {
+            var videojuegos = await _service.BuscarVideojuegosAsync(filtro);
+            return Ok(videojuegos);
+        }
     }
 }
