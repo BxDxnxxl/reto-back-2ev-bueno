@@ -71,5 +71,12 @@ namespace Videojuegos.Controllers
             var usuarios = await _service.GetUsuariosByNombreAsync(nombre);
             return Ok(usuarios);
         }
+
+         [HttpPost("login")]
+        public async Task<ActionResult<LoginDto>> Login([FromBody] LoginRequestDto request)
+        {
+            var usuario = await _service.LoginAsync(request.Username, request.Password);
+            return Ok(usuario);
+        }
     }
 }

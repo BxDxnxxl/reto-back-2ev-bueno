@@ -171,5 +171,66 @@ namespace Videojuegos.Repositories
             }
             return usuarios;
         }
+
+        public async Task<LoginDto?> LoginAsync(string username, string password)
+        {
+            LoginDto? usuario = null;
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT u.Id, u.Username, u.Nombre
+                    FROM Usuarios u
+                    WHERE u.Username = @Username AND u.Contraseña = @Password";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            usuario = new LoginDto
+                            {
+                                Id = reader.GetInt32(0),
+                                Username = reader.GetString(1),
+                                Nombre = reader.GetString(2)
+                            };
+                        }
+                    }
+                }
+
+                if (usuario != null)
+                {
+                    usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id, connection);
+                }
+            }
+            return usuario;
+        }
+
+        private async Task<List<string>> GetRolesByUsuarioIdAsync(int userId, SqlConnection connection)
+        {
+            var roles = new List<string>();
+            string query = @"
+                SELECT r.Rol FROM Roles r
+                JOIN UsuarioRol ur ON r.Id = ur.fkIdRol
+                WHERE ur.fkIdUsuario = @UserId";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@UserId", userId);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        roles.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return roles;
+        }
     }
 }
