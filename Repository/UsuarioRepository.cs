@@ -33,7 +33,7 @@ namespace Videojuegos.Repositories
                             Id = reader.GetInt32(0),
                             Username = reader.GetString(1),
                             Email = reader.GetString(2),
-                            Contraseña = reader.GetString(3),
+                            Contrasenia = reader.GetString(3),
                             Nombre = reader.GetString(4),
                             Apellido1 = reader.GetString(5),
                             Apellido2 = reader.GetString(6),
@@ -66,7 +66,7 @@ namespace Videojuegos.Repositories
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
                                 Email = reader.GetString(2),
-                                Contraseña = reader.GetString(3),
+                                Contrasenia = reader.GetString(3),
                                 Nombre = reader.GetString(4),
                                 Apellido1 = reader.GetString(5),
                                 Apellido2 = reader.GetString(6),
@@ -90,7 +90,7 @@ namespace Videojuegos.Repositories
                 {
                     command.Parameters.AddWithValue("@Username", usuario.Username);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
-                    command.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
+                    command.Parameters.AddWithValue("@Contraseña", usuario.Contrasenia);
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Apellido1", usuario.Apellido1);
                     command.Parameters.AddWithValue("@Apellido2", usuario.Apellido2);
@@ -112,7 +112,7 @@ namespace Videojuegos.Repositories
                     command.Parameters.AddWithValue("@Id", usuario.Id);
                     command.Parameters.AddWithValue("@Username", usuario.Username);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
-                    command.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
+                    command.Parameters.AddWithValue("@Contraseña", usuario.Contrasenia);
                     command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@Apellido1", usuario.Apellido1);
                     command.Parameters.AddWithValue("@Apellido2", usuario.Apellido2);
@@ -162,7 +162,7 @@ namespace Videojuegos.Repositories
                                 Nombre = reader.GetString(2),
                                 Apellido1 = reader.IsDBNull(3) ? "" : reader.GetString(3),
                                 Apellido2 = reader.IsDBNull(4) ? "" : reader.GetString(4),
-                                Contraseña = reader.GetString(5),
+                                Contrasenia = reader.GetString(5),
                                 ProfilePic = reader.IsDBNull(6) ? null : reader.GetString(6)
                             });
                         }
@@ -231,6 +231,22 @@ namespace Videojuegos.Repositories
                 }
             }
             return roles;
+        }
+
+        public async Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario){
+             using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "INSERT INTO Usuarios (Username, Email, Contraseña) VALUES (@Username, @Email, @Contraseña)";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", usuario.Username);
+                    command.Parameters.AddWithValue("@Email", usuario.Email);
+                    command.Parameters.AddWithValue("@Contraseña", usuario.Contrasenia);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }
