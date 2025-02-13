@@ -48,5 +48,10 @@ namespace Videojuegos.Service
         {
             return await _usuarioRepository.LoginAsync(username, password);
         }
+
+        public async Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario)
+        {
+            await _usuarioRepository.CreacionBasicaAsync(usuario);
+        }
     }
 }
