@@ -172,9 +172,9 @@ namespace Videojuegos.Repositories
             return usuarios;
         }
 
-        public async Task<LoginDto?> LoginAsync(string username, string password)
+        public async Task<UserInfoRoles?> LoginAsync(string username, string password)
         {
-            LoginDto? usuario = null;
+            UserInfoRoles? usuario = null;
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -197,7 +197,9 @@ namespace Videojuegos.Repositories
                             {
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
-                                Nombre = reader.GetString(2)
+                                Nombre = reader.GetString(2),
+                                Apellido1 = reader.GetString(3),
+                                Apellido2 = reader.IsDBNull(4) ? null : reader.GetString(4),
                             };
                         }
                     }
@@ -248,5 +250,45 @@ namespace Videojuegos.Repositories
                 }
             }
         }
+
+        public async Task<List<UserInfoRolesDto>> GetUsuariosConRolesAsync()
+        {
+            var usuarios = new List<UserInfoRolesDto>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT u.Id, u.Username, u.Nombre, u.Apellido1, u.Apellido2 FROM Usuarios u";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var usuario = usuarios.FirstOrDefault(u => u.Id == reader.GetInt32(0));
+
+                            if (usuario == null)
+                            {
+                                usuario = new UserInfoRoles
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Username = reader.GetString(1),
+                                    Nombre = reader.GetString(2),
+                                    Apellido1 = reader.GetString(3),
+                                    Apellido2 = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                };
+                                usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id, connection);
+                                usuarios.Add(usuario);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return usuarios;
+        }
+
     }
 }

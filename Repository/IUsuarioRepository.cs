@@ -15,5 +15,6 @@ namespace Videojuegos.Repositories
         Task<LoginDto?> LoginAsync(string username, string password);
 
         Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
+        Task<List<UserInfoRoles>> GetUsuariosConRolesAsync();
     }
 }

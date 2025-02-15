@@ -14,5 +14,6 @@ namespace Videojuegos.Service
         Task<List<Usuario>> GetUsuariosByNombreAsync(string nombre);
         Task<LoginDto?> LoginAsync(string username, string password);
         Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
+        Task<List<UserInfoRolesDto>> GetUsuariosConRolesAsync();
     }
 }
