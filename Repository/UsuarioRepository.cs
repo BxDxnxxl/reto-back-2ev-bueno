@@ -193,7 +193,7 @@ namespace Videojuegos.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            usuario = new LoginDto
+                            usuario = new UserInfoRoles
                             {
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
@@ -251,9 +251,9 @@ namespace Videojuegos.Repositories
             }
         }
 
-        public async Task<List<UserInfoRolesDto>> GetUsuariosConRolesAsync()
+        public async Task<List<UserInfoRoles>> GetUsuariosConRolesAsync()
         {
-            var usuarios = new List<UserInfoRolesDto>();
+            var usuarios = new List<UserInfoRoles>();
 
             using (var connection = new SqlConnection(_connectionString))
             {

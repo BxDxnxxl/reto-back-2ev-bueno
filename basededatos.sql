@@ -1,6 +1,3 @@
-CREATE DATABASE VideojuegosDB;
-USE VideojuegosDB;
-
 CREATE TABLE Usuarios (
     id INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(50) UNIQUE NOT NULL,

@@ -44,7 +44,7 @@ namespace Videojuegos.Service
             return await _usuarioRepository.GetUsuariosByNombreAsync(nombre);
         }
 
-        public async Task<LoginDto?> LoginAsync(string username, string password)
+        public async Task<UserInfoRoles?> LoginAsync(string username, string password)
         {
             return await _usuarioRepository.LoginAsync(username, password);
         }
@@ -53,7 +53,7 @@ namespace Videojuegos.Service
         {
             await _usuarioRepository.CreacionBasicaAsync(usuario);
         }
-        public async Task<List<UserInfoRolesDto>> GetUsuariosConRolesAsync();
+        public async Task<List<UserInfoRoles>> GetUsuariosConRolesAsync()
         {
             return await _usuarioRepository.GetUsuariosConRolesAsync();
         }
