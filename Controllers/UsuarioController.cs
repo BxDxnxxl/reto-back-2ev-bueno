@@ -85,5 +85,12 @@ namespace Videojuegos.Controllers
             await _service.CreacionBasicaAsync(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuarioCreado.Id }, usuarioCreado);
         }
+
+        [HttpGet("usuarios-con-roles")]
+        public async Task<ActionResult<List<UserInfoRolesDto>>> GetUsuariosConRoles()
+        {
+            var usuarios = await _service.GetUsuariosConRolesAsync();
+            return Ok(usuarios);
+        }
     }
 }
