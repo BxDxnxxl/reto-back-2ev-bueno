@@ -53,5 +53,9 @@ namespace Videojuegos.Service
         {
             await _usuarioRepository.CreacionBasicaAsync(usuario);
         }
+        public async Task<List<UserInfoRolesDto>> GetUsuariosConRolesAsync();
+        {
+            return await _usuarioRepository.GetUsuariosConRolesAsync();
+        }
     }
 }
