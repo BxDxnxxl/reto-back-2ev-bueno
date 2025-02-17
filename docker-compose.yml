@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: Dockerfile  
     ports:
-      - "4444:80" 
+      - "4444:8080" 
     networks:
       - backend
     depends_on:
