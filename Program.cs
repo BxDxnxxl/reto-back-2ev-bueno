@@ -32,15 +32,10 @@ builder.Services.AddScoped<IPlataformaService, PlataformaService>();
 builder.Services.AddScoped<IVideojuegoService, VideojuegoService>();
 
 var app = builder.Build();
-
-
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 }
-
-
 app.UseAuthorization();
 
 app.MapControllers();
