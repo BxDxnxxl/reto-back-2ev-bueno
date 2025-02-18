@@ -35,5 +35,6 @@ services:
     depends_on:
       - bbdd 
     environment:
+      ASPNETCORE_HTTP_PORTS: "80"
       ConnectionStrings__DefaultConnection: "Server=dbContainer,1433;Database=VideojuegosDB;User Id=sa;Password=G#tL9wX3r!sPzD7b;TrustServerCertificate=True"
 
