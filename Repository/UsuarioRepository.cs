@@ -34,10 +34,10 @@ namespace Videojuegos.Repositories
                             Username = reader.GetString(1),
                             Email = reader.GetString(2),
                             Contrasenia = reader.GetString(3),
-                            Nombre = reader.GetString(4),
-                            Apellido1 = reader.GetString(5),
-                            Apellido2 = reader.GetString(6),
-                            ProfilePic = reader.GetString(7)
+                            Nombre = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            Apellido1 = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                            Apellido2 = reader.IsDBNull(6) ? "" : reader.GetString(6),
+                            ProfilePic = reader.IsDBNull(7) ? "" : reader.GetString(7)
                         });
                     }
                 }
@@ -67,10 +67,10 @@ namespace Videojuegos.Repositories
                                 Username = reader.GetString(1),
                                 Email = reader.GetString(2),
                                 Contrasenia = reader.GetString(3),
-                                Nombre = reader.GetString(4),
-                                Apellido1 = reader.GetString(5),
-                                Apellido2 = reader.GetString(6),
-                                ProfilePic = reader.GetString(7)
+                                Nombre = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                                Apellido1 = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                                Apellido2 = reader.IsDBNull(6) ? "" : reader.GetString(6),
+                                ProfilePic = reader.IsDBNull(7) ? "" : reader.GetString(7)
                             };
                         }
                     }
@@ -84,7 +84,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Usuarios (Username, Email, Contraseña, Nombre, Apellido1, Apellido2) VALUES (@Username, @Email, @Contraseña, @Nombre, @Apellido1, @Apellido2, @ProfilePic = ProfilePic)";
+                string query = "INSERT INTO Usuarios (Username, Email, Contraseña, Nombre, Apellido1, Apellido2, ProfilePic) VALUES (@Username, @Email, @Contraseña, @Nombre, @Apellido1, @Apellido2, @ProfilePic)";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -182,7 +182,7 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT u.Id, u.Username, u.Nombre
+                    SELECT u.Id, u.Username, u.Nombre, u.Apellido1, u.Apellido2
                     FROM Usuarios u
                     WHERE u.Username = @Username AND u.Contraseña = @Password";
 
@@ -199,9 +199,9 @@ namespace Videojuegos.Repositories
                             {
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
-                                Nombre = reader.GetString(2),
-                                Apellido1 = reader.GetString(3),
-                                Apellido2 = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                Nombre = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                                Apellido1 = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                                Apellido2 = reader.IsDBNull(4) ? "" : reader.GetString(4),
                             };
                         }
                     }
@@ -209,18 +209,19 @@ namespace Videojuegos.Repositories
 
                 if (usuario != null)
                 {
-                    usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id, connection);
+                    usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id, connection) ?? new List<string>();
                 }
             }
             return usuario;
         }
 
 
+
         private async Task<List<string>> GetRolesByUsuarioIdAsync(int userId, SqlConnection connection)
         {
             var roles = new List<string>();
             string query = @"
-                SELECT r.Rol FROM Roles r
+                SELECT r.nombre FROM Roles r
                 JOIN UsuarioRol ur ON r.Id = ur.fkIdRol
                 WHERE ur.fkIdUsuario = @UserId";
 
@@ -231,7 +232,7 @@ namespace Videojuegos.Repositories
                 {
                     while (await reader.ReadAsync())
                     {
-                        roles.Add(reader.GetString(0));
+                        roles.Add(reader.IsDBNull(0) ? "" : reader.GetString(0));
                     }
                 }
             }
@@ -239,21 +240,28 @@ namespace Videojuegos.Repositories
         }
 
         //creacion basica desde el login
-        public async Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario){
-             using (var connection = new SqlConnection(_connectionString))
+        public async Task<int> CreacionBasicaAsync(UsuarioCreacionBaseDto usuario)
+        {
+            using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Usuarios (Username, Email, Contraseña) VALUES (@Username, @Email, @Contraseña)";
+                string query = @"
+                    INSERT INTO Usuarios (Username, Email, Contraseña)
+                    OUTPUT INSERTED.Id
+                    VALUES (@Username, @Email, @Contraseña)";
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", usuario.Username);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
                     command.Parameters.AddWithValue("@Contraseña", usuario.Contrasenia);
-                    await command.ExecuteNonQueryAsync();
+
+                    // Devuelve el Id del usuario recién insertado
+                    return (int)await command.ExecuteScalarAsync();
                 }
             }
         }
+
 
         //función para el listado de usuarios con roles
         public async Task<List<UserInfoRoles>> GetUsuariosConRolesAsync()

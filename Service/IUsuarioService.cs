@@ -13,7 +13,7 @@ namespace Videojuegos.Service
         Task DeleteAsync(int id);
         Task<List<Usuario>> GetUsuariosByNombreAsync(string nombre);
         Task<UserInfoRoles?> LoginAsync(LoginRequestDto loginUsuario);
-        Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
+        Task <int>CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
         Task<List<UserInfoRoles>> GetUsuariosConRolesAsync();
     }
 }
