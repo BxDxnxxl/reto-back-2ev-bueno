@@ -5,7 +5,8 @@ CREATE TABLE Usuarios (
     contraseña NVARCHAR(255) NOT NULL,
     nombre NVARCHAR(30),
     apellido1 NVARCHAR(30),
-    apellido2 NVARCHAR(30)
+    apellido2 NVARCHAR(30),
+    ProfilePic NVARCHAR(255)
 );
 
 CREATE TABLE Roles (

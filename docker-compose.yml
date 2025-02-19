@@ -11,7 +11,7 @@ volumes:
 services:
   bbdd:
     container_name: dbContainer
-    image: mcr.microsoft.com/mssql/server:2022-CU11-ubuntu-20.04  
+    image: mcr.microsoft.com/mssql/server:2022-CU11-ubuntu-20.04 
     ports:
       - "1433:1433"  
     networks:

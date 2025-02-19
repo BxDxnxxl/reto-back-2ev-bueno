@@ -14,7 +14,7 @@ namespace Videojuegos.Repositories
         Task <List<Usuario>> GetUsuariosByNombreAsync(string nombre);
         Task<UserInfoRoles?> LoginAsync(LoginRequestDto usuarioLogin);
 
-        Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
+        Task<int> CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
         Task<List<UserInfoRoles>> GetUsuariosConRolesAsync();
     }
 }
