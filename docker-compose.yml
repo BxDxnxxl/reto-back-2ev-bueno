@@ -20,7 +20,12 @@ services:
       - sqlserver-data:/var/opt/mssql 
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "G#tL9wX3r!sPzD7b"  
+      MSSQL_SA_PASSWORD: "G#tL9wX3r!sPzD7b"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'G#tL9wX3r!sPzD7b' -Q 'SELECT 1' &>/dev/null; do sleep 1; done"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
 
   api:
     container_name: apiContainer
@@ -33,7 +38,8 @@ services:
     networks:
       - backend
     depends_on:
-      - bbdd 
+      bbdd:
+        condition: service_healthy
     environment:
-      ConnectionStrings__DefaultConnection: "Server=dbContainer,1433;Database=VideojuegosDB;User Id=sa;Password=G#tL9wX3r!sPzD7b;TrustServerCertificate=True"
-
+      ASPNETCORE_HTTP_PORTS: "80"
+      ConnectionStrings__VideojuegosDB: "Server=dbContainer,1433;Database=VideojuegosDB;User Id=sa;Password=G#tL9wX3r!sPzD7b;TrustServerCertificate=True"

@@ -23,6 +23,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+ builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins",
+            builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    });
+
+
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IComentarioService, ComentarioService>();
@@ -32,18 +39,12 @@ builder.Services.AddScoped<IPlataformaService, PlataformaService>();
 builder.Services.AddScoped<IVideojuegoService, VideojuegoService>();
 
 var app = builder.Build();
-
-
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseCors("AllowAllOrigins");
 app.MapControllers();
 
 app.Run();

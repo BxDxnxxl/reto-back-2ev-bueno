@@ -75,17 +75,17 @@ namespace Videojuegos.Controllers
         [HttpGet("login")]
         public async Task<ActionResult<UserInfoRoles>> Login([FromBody] LoginRequestDto request)
         {
-            var usuario = await _service.LoginAsync(request.Username, request.Password);
+            var usuario = await _service.LoginAsync(request);
             return Ok(usuario);
         }
 
         [HttpPost("CrearDesdeLogin")]
-    public async Task<ActionResult<Usuario>> CreateUsuarioDesdeLogin([FromBody] UsuarioCreacionBaseDto usuario)
-    {
-         await _service.CreacionBasicaAsync(usuario);
-         var usuarioCreado = new Usuario();
-        return CreatedAtAction(nameof(GetUsuario), new { id = usuarioCreado.Id }, usuarioCreado);
-}
+        public async Task<ActionResult<Usuario>> CreateUsuarioDesdeLogin([FromBody] UsuarioCreacionBaseDto usuario)
+        {
+            await _service.CreacionBasicaAsync(usuario);
+            var usuarioCreado = new Usuario();
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuarioCreado.Id }, usuarioCreado);
+        }
 
         [HttpGet("usuarios-con-roles")]
         public async Task<ActionResult<List<UserInfoRoles>>> GetUsuariosConRoles()

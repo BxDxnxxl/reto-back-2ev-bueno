@@ -137,6 +137,7 @@ namespace Videojuegos.Repositories
             }
         }
 
+        //función para filtrar por nombre de usuario
         public async Task<List<Usuario>> GetUsuariosByNombreAsync(string nombre)
         {
             var usuarios = new List<Usuario>();
@@ -172,7 +173,8 @@ namespace Videojuegos.Repositories
             return usuarios;
         }
 
-        public async Task<UserInfoRoles?> LoginAsync(string username, string password)
+        //función para saber si el login que se esta intentado es correcto
+        public async Task<UserInfoRoles?> LoginAsync(LoginRequestDto usuarioLogin)
         {
             UserInfoRoles? usuario = null;
 
@@ -186,8 +188,8 @@ namespace Videojuegos.Repositories
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Username", usuarioLogin.Username);
+                    command.Parameters.AddWithValue("@Password", usuarioLogin.Password);
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -213,6 +215,7 @@ namespace Videojuegos.Repositories
             return usuario;
         }
 
+
         private async Task<List<string>> GetRolesByUsuarioIdAsync(int userId, SqlConnection connection)
         {
             var roles = new List<string>();
@@ -235,6 +238,7 @@ namespace Videojuegos.Repositories
             return roles;
         }
 
+        //creacion basica desde el login
         public async Task CreacionBasicaAsync(UsuarioCreacionBaseDto usuario){
              using (var connection = new SqlConnection(_connectionString))
             {
@@ -251,6 +255,7 @@ namespace Videojuegos.Repositories
             }
         }
 
+        //función para el listado de usuarios con roles
         public async Task<List<UserInfoRoles>> GetUsuariosConRolesAsync()
         {
             var usuarios = new List<UserInfoRoles>();
