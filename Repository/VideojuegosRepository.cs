@@ -317,5 +317,44 @@ namespace Videojuegos.Repositories
             return videojuegos;
         }
 
+        public async Task<List<Videojuego>> GetTop5MejoresVideojuegosValoradosAsync()
+        {
+            var videojuegos = new List<Videojuego>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = @"
+                    SELECT TOP 5 
+                        v.Id, v.Titulo, v.Descripcion, v.AnioSalida, v.Pegi, v.Caratula,
+                        AVG(CAST(c.valoracion AS FLOAT)) AS ValoracionPromedio
+                    FROM Videojuegos v
+                    LEFT JOIN Comentarios c ON v.Id = c.fkIdVideojuego
+                    GROUP BY v.Id, v.Titulo, v.Descripcion, v.AnioSalida, v.Pegi, v.Caratula
+                    ORDER BY ValoracionPromedio DESC";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            videojuegos.Add(new Videojuego
+                            {
+                                Id = reader.GetInt32(0),
+                                Titulo = reader.GetString(1),
+                                Descripcion = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                                AnioSalida = reader.GetDateTime(3),
+                                Pegi = reader.IsDBNull(4) ? null : reader.GetInt32(4),
+                                Caratula = reader.IsDBNull(5) ? null : reader.GetString(5)
+                            });
+                        }
+                    }
+                }
+            }
+            return videojuegos;
+        }
+
     }
 }

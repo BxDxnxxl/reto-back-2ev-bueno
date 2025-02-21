@@ -53,5 +53,10 @@ namespace Videojuegos.Service
         {
             return await _videojuegoRepository.BuscarVideojuegosAsync(filtro);
         }
+
+        public async Task<List<Videojuego>> GetTop5MejoresVideojuegosValoradosAsync()
+        {
+            return await _videojuegoRepository.GetTop5MejoresVideojuegosValoradosAsync();
+        }
     }
 }
