@@ -11,5 +11,6 @@ namespace Videojuegos.Service
         Task AddAsync(Rol rol);
         Task UpdateAsync(Rol rol);
         Task DeleteAsync(int id);
+        Task asignarRolesAUsuarios(UsuarioRolDto usuarioRolDto);
     }
 }

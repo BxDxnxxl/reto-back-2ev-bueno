@@ -57,5 +57,10 @@ namespace Videojuegos.Service
         {
             return await _usuarioRepository.GetUsuariosConRolesAsync();
         }
+
+        public async Task<UserInfoRoles> GetUsuarioConRolesByIdAsync(int idUsuario)
+        {
+            return await _usuarioRepository.GetUsuarioConRolesByIdAsync(idUsuario);
+        }
     }
 }
