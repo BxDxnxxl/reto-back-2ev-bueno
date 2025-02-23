@@ -59,5 +59,12 @@ namespace Videojuegos.Controllers
             await _service.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpPost("asignarRoles")]
+        public async Task<IActionResult> AssignRolesToUsuario([FromBody] UsuarioRolDto usuarioRolDto)
+        {
+            await _service.asignarRolesAUsuarios(usuarioRolDto);
+            return Ok(new { message = "Roles asignados correctamente" });
+        }
     }
 }
