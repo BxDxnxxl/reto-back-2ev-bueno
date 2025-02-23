@@ -112,5 +112,34 @@ namespace Videojuegos.Repositories
                 }
             }
         }
+
+        public async Task asignarRolesAUsuarios(UsuarioRolDto usuarioRolDto)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                //quitamos los roles que tienen los usuarios para que no haya problemas a la hora de asignar los nuevos
+                string deleteQuery = "DELETE FROM UsuarioRol WHERE fkIdUsuario = @fkIdUsuario";
+                using (var deleteCommand = new SqlCommand(deleteQuery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@fkIdUsuario", usuarioRolDto.UsuarioId);
+                    await deleteCommand.ExecuteNonQueryAsync();
+                }
+
+                //otorgamos los nuevos roles
+                foreach (var rolId in usuarioRolDto.RolesIds)
+                {
+                    string insertQuery = "INSERT INTO UsuarioRol (fkIdUsuario, fkIdRol) VALUES (@fkIdUsuario, @fkIdRol)";
+                    using (var insertCommand = new SqlCommand(insertQuery, connection))
+                    {
+                        insertCommand.Parameters.AddWithValue("@fkIdUsuario", usuarioRolDto.UsuarioId);
+                        insertCommand.Parameters.AddWithValue("@fkIdRol", rolId);
+                        await insertCommand.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+        }
+
     }
 }

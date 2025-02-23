@@ -97,5 +97,12 @@ namespace Videojuegos.Controllers
             var usuarios = await _service.GetUsuariosConRolesAsync();
             return Ok(usuarios);
         }
+
+       [HttpGet("detalle/{usuarioId}")]
+        public async Task<IActionResult> GetUsuarioConRolesById(int usuarioId)
+        {
+            var usuario = await _service.GetUsuarioConRolesByIdAsync(usuarioId);
+            return Ok(usuario);
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace Videojuegos.Service
         {
             await _rolRepository.DeleteAsync(id);
         }
+
+        public async Task asignarRolesAUsuarios(UsuarioRolDto usuarioRolDto)
+        {
+            await _rolRepository.asignarRolesAUsuarios(usuarioRolDto);
+        }
     }
 }
