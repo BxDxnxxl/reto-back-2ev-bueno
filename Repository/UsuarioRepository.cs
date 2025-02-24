@@ -79,12 +79,16 @@ namespace Videojuegos.Repositories
             return usuario;
         }
 
-        public async Task AddAsync(Usuario usuario)
+        public async Task<int> AddAsync(Usuario usuario)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Usuarios (Username, Email, Contraseña, Nombre, Apellido1, Apellido2, ProfilePic) VALUES (@Username, @Email, @Contraseña, @Nombre, @Apellido1, @Apellido2, @ProfilePic)";
+                string query = @"
+                    SET NOCOUNT ON;
+                    INSERT INTO Usuarios (Username, Email, Contraseña, Nombre, Apellido1, Apellido2, ProfilePic)
+                    VALUES (@Username, @Email, @Contraseña, @Nombre, @Apellido1, @Apellido2, @ProfilePic);
+                    SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -95,28 +99,43 @@ namespace Videojuegos.Repositories
                     command.Parameters.AddWithValue("@Apellido1", usuario.Apellido1);
                     command.Parameters.AddWithValue("@Apellido2", usuario.Apellido2);
                     command.Parameters.AddWithValue("@ProfilePic", usuario.ProfilePic);
-                    await command.ExecuteNonQueryAsync();
+
+                    var result = await command.ExecuteScalarAsync();
+                    int nuevoId = Convert.ToInt32(result);
+                    usuario.Id = nuevoId;
+                    return nuevoId;
                 }
             }
         }
 
-        public async Task UpdateAsync(Usuario usuario)
+
+        public async Task UpdateAsync(int id, Usuario usuario)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE Usuarios SET Username = @Username, Email = @Email, Contraseña = @Contraseña, Nombre = @Nombre, Apellido1 = @Apellido1, Apellido2 = @Apellido2, @ProfilePic = ProfilePic WHERE Id = @Id";
-
+                string query = @"
+                                    UPDATE Usuarios 
+                                    SET 
+                                        Username = @Username, 
+                                        Email = @Email, 
+                                        contraseña = @Contrasenia, 
+                                        Nombre = @Nombre, 
+                                        Apellido1 = @Apellido1, 
+                                        Apellido2 = @Apellido2, 
+                                        ProfilePic = @ProfilePic 
+                                    WHERE Id = @Id";
+            
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", usuario.Id);
+                    command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@Username", usuario.Username);
                     command.Parameters.AddWithValue("@Email", usuario.Email);
-                    command.Parameters.AddWithValue("@Contraseña", usuario.Contrasenia);
-                    command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
-                    command.Parameters.AddWithValue("@Apellido1", usuario.Apellido1);
-                    command.Parameters.AddWithValue("@Apellido2", usuario.Apellido2);
-                    command.Parameters.AddWithValue("@ProfilePic", usuario.ProfilePic);
+                    command.Parameters.AddWithValue("@Contrasenia", usuario.Contrasenia ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Nombre", usuario.Nombre?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Apellido1", usuario.Apellido1 ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Apellido2", usuario.Apellido2 ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ProfilePic", usuario.ProfilePic ?? (object)DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -279,7 +298,9 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT u.Id, u.Username, u.Nombre, u.Apellido1, u.Apellido2 FROM Usuarios u";
+                    SELECT u.Id, u.Username, u.Email, u.Contraseña, u.Nombre, 
+                        u.Apellido1, u.Apellido2, u.ProfilePic
+                    FROM Usuarios u";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -295,9 +316,12 @@ namespace Videojuegos.Repositories
                                 {
                                     Id = reader.GetInt32(0),
                                     Username = reader.GetString(1),
-                                    Nombre = reader.GetString(2),
-                                    Apellido1 = reader.GetString(3),
-                                    Apellido2 = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                    Email = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                    Contrasenia = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                    Nombre = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                    Apellido1 = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                    Apellido2 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                                    ProfilePic = reader.IsDBNull(7) ? null : reader.GetString(7),
                                 };
                                 usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id) ?? new List<Rol>();
                                 usuarios.Add(usuario);
@@ -335,10 +359,12 @@ namespace Videojuegos.Repositories
                             {
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
-                                Email = reader.GetString(2),
-                                Nombre = reader.IsDBNull(3) ? null : reader.GetString(3),
-                                Apellido1 = reader.IsDBNull(4) ? null : reader.GetString(4),
-                                Apellido2 = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                Email = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                Contrasenia = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Nombre = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                Apellido1 = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                Apellido2 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                                ProfilePic = reader.IsDBNull(7) ? null : reader.GetString(7),
                             };
 
                             // Obtener los roles del usuario
@@ -350,8 +376,6 @@ namespace Videojuegos.Repositories
 
             return usuario;
         }
-
-
 
     }
 }
