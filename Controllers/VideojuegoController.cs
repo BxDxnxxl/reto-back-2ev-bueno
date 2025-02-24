@@ -41,11 +41,6 @@ namespace Videojuegos.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVideojuego(int id, Videojuego videojuego)
         {
-            if (id != videojuego.Id) return BadRequest();
-
-            var existingVideojuego = await _service.GetByIdAsync(id);
-            if (existingVideojuego == null) return NotFound();
-
             await _service.UpdateAsync(videojuego);
             return NoContent();
         }
