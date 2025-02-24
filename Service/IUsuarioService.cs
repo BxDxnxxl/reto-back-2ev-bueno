@@ -8,8 +8,8 @@ namespace Videojuegos.Service
     {
         Task<List<Usuario>> GetAllAsync();
         Task<Usuario?> GetByIdAsync(int id);
-        Task AddAsync(Usuario usuario);
-        Task UpdateAsync(Usuario usuario);
+        Task<int> AddAsync(Usuario usuario);
+        Task UpdateAsync(int id,Usuario usuario);
         Task DeleteAsync(int id);
         Task<List<Usuario>> GetUsuariosByNombreAsync(string nombre);
         Task<UserInfoRoles?> LoginAsync(LoginRequestDto loginUsuario);

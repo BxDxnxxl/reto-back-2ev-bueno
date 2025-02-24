@@ -32,23 +32,18 @@ namespace Videojuegos.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUsuario(Usuario usuario)
-        {
-            await _service.AddAsync(usuario);
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id }, usuario);
-        }
+        
+            public async Task<int> AddAsync(Usuario usuario)
+            {
+                usuario.Id = await _service.AddAsync(usuario);
+                return usuario.Id;
+            }
+        
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUsuario(int id, Usuario usuario)
         {
-            if (id != usuario.Id) return BadRequest();
-
-            var existingUsuario = await _service.GetByIdAsync(id);
-            
-            if (existingUsuario == null){ 
-                return NotFound();
-            }
-            await _service.UpdateAsync(usuario);
+            await _service.UpdateAsync(id, usuario);
             return NoContent();
         }
 

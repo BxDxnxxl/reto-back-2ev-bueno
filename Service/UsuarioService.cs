@@ -24,14 +24,14 @@ namespace Videojuegos.Service
             return await _usuarioRepository.GetByIdAsync(id);
         }
 
-        public async Task AddAsync(Usuario usuario)
+        public async Task<int> AddAsync(Usuario usuario)
         {
-            await _usuarioRepository.AddAsync(usuario);
+            return await _usuarioRepository.AddAsync(usuario);
         }
 
-        public async Task UpdateAsync(Usuario usuario)
+        public async Task UpdateAsync(int id, Usuario usuario)
         {
-            await _usuarioRepository.UpdateAsync(usuario);
+            await _usuarioRepository.UpdateAsync(id, usuario);
         }
 
         public async Task DeleteAsync(int id)
