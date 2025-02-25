@@ -80,7 +80,9 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Videojuegos (Titulo, Descripcion, AnioSalida, Pegi, Caratula) VALUES (@Titulo, @Descripcion, @AnioSalida, @Pegi, @Caratula)";
+                string query = @"
+                    INSERT INTO Videojuegos (Titulo, Descripcion, AnioSalida, Pegi, Caratula, FkIdCompania) 
+                    VALUES (@Titulo, @Descripcion, @AnioSalida, @Pegi, @Caratula, @FkIdCompania)";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -89,6 +91,8 @@ namespace Videojuegos.Repositories
                     command.Parameters.AddWithValue("@AnioSalida", videojuego.AnioSalida);
                     command.Parameters.AddWithValue("@Pegi", (object)videojuego.Pegi ?? DBNull.Value);
                     command.Parameters.AddWithValue("@Caratula", (object)videojuego.Caratula ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@FkIdCompania", videojuego.FkIdCompania);
+                    
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -167,8 +171,8 @@ namespace Videojuegos.Repositories
 
                 if (detalle != null)
                 {
-                    detalle.Generos = await GetGenerosByVideojuegoIdAsync(id, connection);
-                    detalle.Plataformas = await GetPlataformasByVideojuegoIdAsync(id, connection);
+                    detalle.Generos = await GetGenerosByVideojuegoIdAsync(id);
+                    detalle.Plataformas = await GetPlataformasByVideojuegoIdAsync(id);
                 }
             }
             return detalle;
@@ -176,50 +180,73 @@ namespace Videojuegos.Repositories
 
 
         //función que coge todos los géneros de un videojuego en base al id del juego
-        private async Task<List<string>> GetGenerosByVideojuegoIdAsync(int id, SqlConnection connection)
+       public async Task<List<Genero>> GetGenerosByVideojuegoIdAsync(int videojuegoId)
         {
-            var generos = new List<string>();
-            string query = @"
-                SELECT g.Nombre FROM Generos g
-                JOIN VideojuegoGenero vg ON g.Id = vg.fkIdGenero
-                WHERE vg.fkIdVideojuego = @Id";
+            var generos = new List<Genero>();
 
-            using (var command = new SqlCommand(query, connection))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                command.Parameters.AddWithValue("@Id", id);
-                using (var reader = await command.ExecuteReaderAsync())
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT g.Id, g.Nombre
+                    FROM Generos g
+                    JOIN VideojuegoGenero vg ON g.Id = vg.fkIdGenero
+                    WHERE vg.fkIdVideojuego = @fkIdVideojuego";
+
+                using (var command = new SqlCommand(query, connection))
                 {
-                    while (await reader.ReadAsync())
+                    command.Parameters.AddWithValue("@fkIdVideojuego", videojuegoId);
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
-                        generos.Add(reader.GetString(0));
+                        while (await reader.ReadAsync())
+                        {
+                            generos.Add(new Genero
+                            {
+                                Id = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                            });
+                        }
                     }
                 }
             }
+
             return generos;
         }
 
         //función que coge todos las plataformas en las que se encuentra disponible un videojuego en base al id del juego
-        private async Task<List<string>> GetPlataformasByVideojuegoIdAsync(int id, SqlConnection connection)
+        public async Task<List<Plataforma>> GetPlataformasByVideojuegoIdAsync(int videojuegoId)
         {
-            var plataformas = new List<string>();
-            string query = @"
-                SELECT p.Nombre FROM Plataformas p
-                JOIN VideojuegoPlataforma vp ON p.Id = vp.fkIdPlataforma
-                WHERE vp.fkIdVideojuego = @Id";
+            var plataformas = new List<Plataforma>();
 
-            using (var command = new SqlCommand(query, connection))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                command.Parameters.AddWithValue("@Id", id);
-                using (var reader = await command.ExecuteReaderAsync())
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT p.Id, p.Nombre
+                    FROM Plataformas p
+                    JOIN VideojuegoPlataforma vp ON p.Id = vp.fkIdPlataforma
+                    WHERE vp.fkIdVideojuego = @fkIdVideojuego";
+
+                using (var command = new SqlCommand(query, connection))
                 {
-                    while (await reader.ReadAsync())
+                    command.Parameters.AddWithValue("@fkIdVideojuego", videojuegoId);
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
-                        plataformas.Add(reader.GetString(0));
+                        while (await reader.ReadAsync())
+                        {
+                            plataformas.Add(new Plataforma
+                            {
+                                Id = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                            });
+                        }
                     }
                 }
             }
+
             return plataformas;
         }
+
 
         //filtro para cuando queramos hacer los filtros superiores
         //podemos pasar parametros pero es opcional, es para ir haciendo los filtros mas completos si quieres filtrar por varios caracteres
