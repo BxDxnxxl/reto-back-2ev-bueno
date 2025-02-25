@@ -192,50 +192,6 @@ namespace Videojuegos.Repositories
             return usuarios;
         }
 
-        //función para saber si el login que se esta intentado es correcto
-        public async Task<UserInfoRoles?> LoginAsync(LoginRequestDto usuarioLogin)
-        {
-            UserInfoRoles? usuario = null;
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                string query = @"
-                    SELECT u.Id, u.Username, u.Nombre, u.Apellido1, u.Apellido2
-                    FROM Usuarios u
-                    WHERE u.Username = @Username AND u.Contraseña = @Password";
-
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Username", usuarioLogin.Username);
-                    command.Parameters.AddWithValue("@Password", usuarioLogin.Password);
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            usuario = new UserInfoRoles
-                            {
-                                Id = reader.GetInt32(0),
-                                Username = reader.GetString(1),
-                                Nombre = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                                Apellido1 = reader.IsDBNull(3) ? "" : reader.GetString(3),
-                                Apellido2 = reader.IsDBNull(4) ? "" : reader.GetString(4),
-                            };
-                        }
-                    }
-                }
-
-                if (usuario != null)
-                {
-                    usuario.Roles = await GetRolesByUsuarioIdAsync(usuario.Id) ?? new List<Rol>();
-                }
-            }
-            return usuario;
-        }
-
-
-
         public async Task<List<Rol>> GetRolesByUsuarioIdAsync(int usuarioId)
         {
             var roles = new List<Rol>();

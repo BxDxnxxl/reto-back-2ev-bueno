@@ -12,7 +12,6 @@ namespace Videojuegos.Repositories
         Task UpdateAsync(int id, Usuario usuario);
         Task DeleteAsync(int id);
         Task <List<Usuario>> GetUsuariosByNombreAsync(string nombre);
-        Task<UserInfoRoles?> LoginAsync(LoginRequestDto usuarioLogin);
         Task<UserInfoRoles?> GetUsuarioConRolesByIdAsync(int usuarioId);
         Task<int> CreacionBasicaAsync(UsuarioCreacionBaseDto usuario);
         Task<List<UserInfoRoles>> GetUsuariosConRolesAsync();

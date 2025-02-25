@@ -44,11 +44,6 @@ namespace Videojuegos.Service
             return await _usuarioRepository.GetUsuariosByNombreAsync(nombre);
         }
 
-        public async Task<UserInfoRoles?> LoginAsync(LoginRequestDto usuarioLogin)
-        {
-            return await _usuarioRepository.LoginAsync(usuarioLogin);
-        }
-
         public async Task<int> CreacionBasicaAsync(UsuarioCreacionBaseDto usuario)
         {
             return await _usuarioRepository.CreacionBasicaAsync(usuario);
