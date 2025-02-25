@@ -67,14 +67,6 @@ namespace Videojuegos.Controllers
             return Ok(usuarios);
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<UserInfoRoles>> Login([FromBody] LoginRequestDto request)
-        {
-            var usuario = await _service.LoginAsync(request);
-            return Ok(usuario);
-        }
-
-
         [HttpPost("CrearDesdeLogin")]
         public async Task<ActionResult<Usuario>> CreateUsuarioDesdeLogin([FromBody] UsuarioCreacionBaseDto usuario)
         {
