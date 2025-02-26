@@ -78,6 +78,17 @@ CREATE TABLE Comentarios (
     FOREIGN KEY (fkIdVideojuego) REFERENCES Videojuegos(id) ON DELETE CASCADE
 );
 
+INSERT INTO Companias (Nombre) VALUES 
+('Nintendo'),          
+('FromSoftware'),      
+('CD Projekt Red'),    
+('Rockstar Games'),    
+('Team Cherry'),       
+('Santa Monica Studio'), 
+('Mojang'),           
+('Bandai Namco'),      
+('Ubisoft');  
+
 -- Insertar usuarios
 INSERT INTO Usuarios (Id, Username, Email, Contrasenia, Nombre, Apellido1, Apellido2, ProfilePic)
 VALUES
@@ -116,16 +127,7 @@ VALUES
 (1, 10, 'Diversión garantizada', 'Mario en su máxima expresión.', '2023-10-05', 9, 140, 3),
 (1, 11, 'Aburrido', 'No aporta nada nuevo.', '2023-11-11', 5, 20, 50);
 
-INSERT INTO Companias (Nombre) VALUES 
-('Nintendo'),          
-('FromSoftware'),      
-('CD Projekt Red'),    
-('Rockstar Games'),    
-('Team Cherry'),       
-('Santa Monica Studio'), 
-('Mojang'),           
-('Bandai Namco'),      
-('Ubisoft');     
+   
 
 INSERT INTO Plataformas (nombre) VALUES 
 ('PC'),
