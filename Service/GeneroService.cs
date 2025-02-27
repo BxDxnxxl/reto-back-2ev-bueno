@@ -38,5 +38,10 @@ namespace Videojuegos.Service
         {
             await _generoRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Genero>> GetTop5GenresAsync()
+        {
+            return await _generoRepository.GetTop5GenresAsync();
+        }
     }
 }

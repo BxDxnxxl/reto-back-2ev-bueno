@@ -11,5 +11,6 @@ namespace Videojuegos.Service
         Task AddAsync(Genero genero);
         Task UpdateAsync(Genero genero);
         Task DeleteAsync(int id);
+        Task<List<Genero>> GetTop5GenresAsync();
     }
 }

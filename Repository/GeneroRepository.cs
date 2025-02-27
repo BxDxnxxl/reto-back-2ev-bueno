@@ -112,5 +112,35 @@ namespace Videojuegos.Repositories
                 }
             }
         }
+
+        public async Task<List<Genero>> GetTop5GenresAsync()
+        {
+            var generos = new List<Genero>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT TOP 5 g.Id, g.Nombre, COUNT(v.Id) AS CantidadVideojuegos
+                    FROM Generos g
+                    LEFT JOIN Videojuegos v ON g.Id = v.FkIdGenero
+                    GROUP BY g.Id, g.Nombre
+                    ORDER BY CantidadVideojuegos DESC";
+
+                using (var command = new SqlCommand(query, connection))
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        generos.Add(new Genero
+                        {
+                            Id = reader.GetInt32(0),
+                            Nombre = reader.GetString(1)
+                        });
+                    }
+                }
+            }
+            return generos;
+        }
     }
 }

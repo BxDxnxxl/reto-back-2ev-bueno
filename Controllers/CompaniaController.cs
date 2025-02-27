@@ -59,5 +59,12 @@ namespace Videojuegos.Controllers
             await _service.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("top5")]
+        public async Task<ActionResult<List<Compania>>> GetTop5Companies()
+        {
+            var result = await _service.GetTop5CompaniesAsync();
+            return Ok(result);
+        }
     }
 }
