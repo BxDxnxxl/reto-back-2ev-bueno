@@ -121,11 +121,13 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT TOP 5 g.Id, g.Nombre, COUNT(v.Id) AS CantidadVideojuegos
+                     SELECT TOP 5 g.id, g.nombre AS Genero
                     FROM Generos g
-                    LEFT JOIN Videojuegos v ON g.Id = v.FkIdGenero
-                    GROUP BY g.Id, g.Nombre
-                    ORDER BY CantidadVideojuegos DESC";
+                    JOIN VideojuegoGenero vg ON g.id = vg.fkIdGenero
+                    JOIN Videojuegos v ON vg.fkIdVideojuego = v.id
+                    JOIN Comentarios c ON v.id = c.fkIdVideojuego
+                    GROUP BY g.id, g.nombre
+                    ORDER BY AVG(c.valoracion) DESC";
 
                 using (var command = new SqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
