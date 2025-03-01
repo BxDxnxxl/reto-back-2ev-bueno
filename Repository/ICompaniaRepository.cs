@@ -11,5 +11,6 @@ namespace Videojuegos.Repositories
         Task AddAsync(Compania compania);
         Task UpdateAsync(Compania compania);
         Task DeleteAsync(int id);
+        Task<List<Compania>> GetTop5CompaniesAsync();
     }
 }
