@@ -38,5 +38,10 @@ namespace Videojuegos.Service
         {
             await _companiaRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Compania>> GetTop5CompaniesAsync()
+        {
+            return await _companiaRepository.GetTop5CompaniesAsync();
+        }
     }
 }

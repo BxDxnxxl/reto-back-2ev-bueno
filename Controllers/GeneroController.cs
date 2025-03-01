@@ -59,5 +59,12 @@ namespace Videojuegos.Controllers
             await _service.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("top5")]
+        public async Task<ActionResult<List<Genero>>> GetTop5Genres()
+        {
+            var result = await _service.GetTop5GenresAsync();
+            return Ok(result);
+        }
     }
 }
