@@ -87,30 +87,113 @@ INSERT INTO Companias (Nombre) VALUES
 ('Santa Monica Studio'), 
 ('Mojang'),           
 ('Bandai Namco'),      
-('Ubisoft');  
+('Ubisoft'),
+('Bethesda Softworks'),
+('Electronic Arts'),
+('Activision Blizzard'),
+('Sony Interactive Entertainment'),
+('Microsoft Studios'),
+('Square Enix'),
+('Capcom'),
+('Sega'),
+('Konami'),
+('2K Games'),
+('Warner Bros. Games'),
+('Valve Corporation'),
+('Epic Games'),
+('Insomniac Games'),
+('Monolith Soft'),
+('BioWare'),
+('PlatinumGames'),
+('Tango Gameworks'),
+('Rebellion Developments'),
+('THQ Nordic'),
+('Remedy Entertainment'),
+('Obsidian Entertainment'),
+('Larian Studios'),
+('Supergiant Games');
 
 -- Insertar usuarios
-INSERT INTO Usuarios (Id, Username, Email, Contrasenia, Nombre, Apellido1, Apellido2, ProfilePic)
+INSERT INTO Usuarios (Username, Email, contraseña, Nombre, Apellido1, Apellido2, ProfilePic)
 VALUES
-(1, 'aaaaa', 'a@b.com', '123', NULL, NULL, NULL, NULL),
-(2, 'eee', 'd@d.com', '123', NULL, NULL, NULL, NULL),
-(3, 'eddd', 'f@g.com', '1234', NULL, NULL, NULL, NULL),
-(4, '11', '1@a.com', '1', NULL, NULL, NULL, NULL);
+('aaaaa', 'a@b.com', '123', NULL, NULL, NULL, NULL),
+('eee', 'd@d.com', '123', NULL, NULL, NULL, NULL),
+('eddd', 'f@g.com', '1234', NULL, NULL, NULL, NULL),
+('11', '1@a.com', '1', NULL, NULL, NULL, NULL),
+('juan123', 'juan@example.com', 'pass123', 'Juan', 'Pérez', 'López', NULL),
+('maria_gamer', 'maria@example.com', 'gamerpass', 'María', 'Gómez', 'Fernández', NULL),
+('pedro99', 'pedro@example.com', 'pedro2024', 'Pedro', 'Rodríguez', 'Sánchez', NULL),
+('luisa87', 'luisa@example.com', 'luisaPass', 'Luisa', 'Martínez', 'Ramírez', NULL),
+('daniel_gt', 'daniel@example.com', 'danielPass', 'Daniel', 'Torres', 'Hernández', NULL),
+('alex_dev', 'alex@example.com', 'alex1234', 'Alex', 'Luna', 'Moreno', NULL),
+('sofia21', 'sofia@example.com', 'sofiaGamer', 'Sofía', 'Jiménez', 'Ortiz', NULL),
+('carlos_x', 'carlos@example.com', 'carlosPass', 'Carlos', 'Ruiz', 'Vargas', NULL),
+('paula_gaming', 'paula@example.com', 'paulaRocks', 'Paula', 'Navarro', 'Castro', NULL),
+('ricardo12', 'ricardo@example.com', 'ricardo321', 'Ricardo', 'Santos', 'Díaz', NULL),
+('angel_rpg', 'angel@example.com', 'rpgMaster', 'Ángel', 'Morales', 'Peña', NULL),
+('valeria22', 'valeria@example.com', 'valeriaLove', 'Valeria', 'Fernández', 'Mendoza', NULL),
+('jorge_dev', 'jorge@example.com', 'devJorge', 'Jorge', 'Hidalgo', 'Silva', NULL),
+('lucia_gamer', 'lucia@example.com', 'lucia2024', 'Lucía', 'Rojas', 'Aguilar', NULL),
+('esteban77', 'esteban@example.com', 'estebanGamer', 'Esteban', 'Soto', 'Lara', NULL),
+('antonio_yt', 'antonio@example.com', 'antonio123', 'Antonio', 'Paredes', 'Salinas', NULL),
+('gabriela_star', 'gabriela@example.com', 'gabrielaPass', 'Gabriela', 'Iglesias', 'Méndez', NULL),
+('sebastian99', 'sebastian@example.com', 'sebastianGame', 'Sebastián', 'Ávila', 'Ponce', NULL),
+('andrea_queen', 'andrea@example.com', 'andreaWin', 'Andrea', 'Carrillo', 'Guerrero', NULL),
+('fernando_gt', 'fernando@example.com', 'fernandoPower', 'Fernando', 'Vera', 'Rosales', NULL),
+('isabel_game', 'isabel@example.com', 'isabelSuper', 'Isabel', 'Bustamante', 'Escobar', NULL),
+('victor_gamer', 'victor@example.com', 'victorMVP', 'Víctor', 'Miranda', 'Solano', NULL),
+('martin_prog', 'martin@example.com', 'martinCode', 'Martín', 'Cabrera', 'Moya', NULL),
+('adriana_fx', 'adriana@example.com', 'adrianaFX', 'Adriana', 'Giménez', 'Estrada', NULL),
+('julio_90', 'julio@example.com', 'julioGames', 'Julio', 'Palacios', 'Sáenz', NULL),
+('claudia_pc', 'claudia@example.com', 'claudia2024', 'Claudia', 'Herrera', 'Fuentes', NULL),
+('mario_dev', 'mario@example.com', 'marioCode', 'Mario', 'Castillo', 'Valdez', NULL),
+('rebecca_x', 'rebecca@example.com', 'rebeccaWin', 'Rebecca', 'Pinto', 'Maldonado', NULL),
+('francisco_gam', 'francisco@example.com', 'franciscoPro', 'Francisco', 'Mejía', 'Trujillo', NULL),
+('roberto_77', 'roberto@example.com', 'robertoPass', 'Roberto', 'Cortés', 'Ojeda', NULL);
 
 -- Insertar videojuegos
 INSERT INTO Videojuegos (Titulo, Descripcion, AnioSalida, Pegi, Caratula, FkIdCompania) VALUES 
-('The Legend of Zelda: Breath of the Wild', 'Un juego de acción y aventura en un mundo abierto.', '2017-03-03', 12, 'zelda_botw.jpg', 1),
-('Elden Ring', 'Un RPG de acción ambientado en un mundo de fantasía.', '2022-02-25', 16, 'elden_ring.jpg', 2),
-('Cyberpunk 2077', 'Un RPG futurista en un mundo abierto lleno de peligros.', '2020-12-10', 18, 'cyberpunk_2077.jpg', 3),
-('Red Dead Redemption 2', 'Un juego de mundo abierto en el salvaje oeste.', '2018-10-26', 18, 'rdr2.jpg', 4),
-('Hollow Knight', 'Un metroidvania en 2D con un mundo profundo y desafiante.', '2017-02-24', 7, 'hollow_knight.jpg', 5),
-('God of War', 'Kratos regresa en una historia mitológica nórdica.', '2018-04-20', 18, 'god_of_war.jpg', 6),
-('Minecraft', 'Un juego de construcción y exploración en un mundo abierto.', '2011-11-18', 7, 'minecraft.jpg', 7),
-('The Witcher 3: Wild Hunt', 'Un RPG de acción basado en la saga de Geralt de Rivia.', '2015-05-19', 18, 'witcher_3.jpg', 3),
-('Dark Souls III', 'Un RPG de acción desafiante y oscuro.', '2016-04-12', 16, 'dark_souls_3.jpg', 8),
-('Super Mario Odyssey', 'Mario explora diversos mundos en esta aventura de plataformas.', '2017-10-27', 3, 'super_mario_odyssey.jpg', 1),
-('F1 Manager', 'Juego de simulación y gestión de equipos de Fórmula 1.', '2025-02-19', 3, 'zzzzz.jpg', 9);
-
+('The Legend of Zelda: Breath of the Wild', 'Un juego de acción y aventura en un mundo abierto.', '2017-03-03', 12, 'src/assets/img/zelda_botw.jpg', 1),
+('Elden Ring', 'Un RPG de acción ambientado en un mundo de fantasía.', '2022-02-25', 16, 'src/assets/img/elden_ring.jpg', 2),
+('Cyberpunk 2077', 'Un RPG futurista en un mundo abierto lleno de peligros.', '2020-12-10', 18, 'src/assets/img/cyberpunk_2077.jpg', 3),
+('Red Dead Redemption 2', 'Un juego de mundo abierto en el salvaje oeste.', '2018-10-26', 18, 'src/assets/img/rdr2.jpg', 4),
+('Hollow Knight', 'Un metroidvania en 2D con un mundo profundo y desafiante.', '2017-02-24', 7, 'src/assets/img/hollow_knight.jpg', 5),
+('God of War', 'Kratos regresa en una historia mitológica nórdica.', '2018-04-20', 18, 'src/assets/img/god_of_war.jpg', 6),
+('Minecraft', 'Un juego de construcción y exploración en un mundo abierto.', '2011-11-18', 7, 'src/assets/img/minecraft.jpg', 7),
+('The Witcher 3: Wild Hunt', 'Un RPG de acción basado en la saga de Geralt de Rivia.', '2015-05-19', 18, 'src/assets/img/witcher_3.jpg', 3),
+('Dark Souls III', 'Un RPG de acción desafiante y oscuro.', '2016-04-12', 16, 'src/assets/img/dark_souls_3.jpg', 8),
+('Super Mario Odyssey', 'Mario explora diversos mundos en esta aventura de plataformas.', '2017-10-27', 3, 'src/assets/img/super_mario_odyssey.jpg', 1),
+('F1 Manager', 'Juego de simulación y gestión de equipos de Fórmula 1.', '2025-02-19', 3, 'src/assets/img/zzzzz.jpg', 9),
+('Halo Infinite', 'FPS futurista con acción intensa.', '2021-12-08', 16, 'src/assets/img/halo_infinite.jpg', 4),
+('GTA V', 'Mundo abierto con crimen y acción.', '2013-09-17', 18, 'src/assets/img/gta_v.jpg', 2),
+('Fortnite', 'Battle Royale multijugador.', '2017-07-21', 12, 'src/assets/img/fortnite.jpg', 3),
+('Among Us', 'Juego de deducción social.', '2018-06-15', 7, 'src/assets/img/among_us.jpg', 6),
+('League of Legends', 'MOBA con estrategia en equipo.', '2009-10-27', 12, 'src/assets/img/lol.jpg', 7),
+('FIFA 23', 'Simulación de fútbol con licencias oficiales.', '2022-09-30', 3, 'src/assets/img/fifa_23.jpg', 5),
+('Resident Evil Village', 'Horror de supervivencia.', '2021-05-07', 18, 'src/assets/img/re_village.jpg', 8),
+('Doom Eternal', 'Shooter en primera persona con acción intensa.', '2020-03-20', 18, 'src/assets/img/doom_eternal.jpg', 4),
+('Sekiro: Shadows Die Twice', 'Juego de acción con combate desafiante.', '2019-03-22', 18, 'src/assets/img/sekiro.jpg', 9),
+('Horizon Forbidden West', 'Aventura en un mundo postapocalíptico.', '2022-02-18', 16, 'src/assets/img/horizon_fw.jpg', 1),
+('Final Fantasy VII Remake', 'Remake del clásico RPG.', '2020-04-10', 16, 'src/assets/img/ff7_remake.jpg', 1),
+('CyberConnect: Future Wars', 'Juego de estrategia en tiempo real.', '2023-08-25', 12, 'src/assets/img/cyberconnect_fw.jpg', 3),
+('The Sims 4', 'Simulación de vida con muchas opciones.', '2014-09-02', 12, 'src/assets/img/the_sims_4.jpg', 5),
+('Valorant', 'Shooter táctico multijugador.', '2020-06-02', 16, 'src/assets/img/valorant.jpg', 7),
+('Elden Scrolls Online', 'MMORPG de mundo abierto.', '2014-04-04', 16, 'src/assets/img/eso.jpg', 2),
+('Call of Duty: Warzone', 'Shooter Battle Royale.', '2020-03-10', 18, 'src/assets/img/warzone.jpg', 4),
+('The Last of Us Part II', 'Aventura con historia profunda.', '2020-06-19', 18, 'src/assets/img/tlou2.jpg', 1),
+('Overwatch 2', 'Shooter multijugador por equipos.', '2022-10-04', 12, 'src/assets/img/overwatch2.jpg', 5),
+('Stardew Valley', 'Simulación de granja con exploración.', '2016-02-26', 7, 'src/assets/img/stardew_valley.jpg', 6),
+('Monster Hunter Rise', 'Caza de monstruos en un mundo épico.', '2021-03-26', 12, 'src/assets/img/mh_rise.jpg', 9),
+('No Man’s Sky', 'Exploración espacial con galaxias infinitas.', '2016-08-09', 12, 'src/assets/img/no_mans_sky.jpg', 3),
+('Terraria', 'Sandbox con aventura y construcción.', '2011-05-16', 7, 'src/assets/img/terraria.jpg', 7),
+('Rainbow Six Siege', 'Shooter táctico en equipo.', '2015-12-01', 18, 'src/assets/img/r6_siege.jpg', 2),
+('Persona 5', 'RPG con historia profunda y estrategia.', '2016-09-15', 16, 'src/assets/img/persona5.jpg', 1),
+('Left 4 Dead 2', 'Shooter cooperativo contra zombies.', '2009-11-17', 18, 'src/assets/img/l4d2.jpg', 3),
+('Hitman 3', 'Sigilo y asesinatos estratégicos.', '2021-01-20', 18, 'src/assets/img/hitman3.jpg', 5),
+('Dead by Daylight', 'Juego de terror asimétrico.', '2016-06-14', 18, 'src/assets/img/dbd.jpg', 6),
+('Little Nightmares II', 'Aventura de terror con puzzles.', '2021-02-11', 12, 'src/assets/img/ln2.jpg', 8),
+('Fall Guys', 'Carreras de obstáculos divertidas.', '2020-08-04', 3, 'src/assets/img/fall_guys.jpg', 7),
+('Hades', 'Roguelike con acción y mitología.', '2020-09-17', 12, 'src/assets/img/hades.jpg', 9);
 
 -- Insertar comentarios
 INSERT INTO Comentarios (fkIdUsuario, fkIdVideojuego, Titulo, Texto, Fecha, Valoracion, Likes, Dislikes)
@@ -125,7 +208,27 @@ VALUES
 (1, 8, 'El mejor RPG', 'Historia, jugabilidad y mundo espectaculares.', '2023-08-21', 10, 190, 2),
 (1, 9, 'Desafiante', 'Un juego difícil pero muy satisfactorio.', '2023-09-15', 9, 160, 5),
 (1, 10, 'Diversión garantizada', 'Mario en su máxima expresión.', '2023-10-05', 9, 140, 3),
-(1, 11, 'Aburrido', 'No aporta nada nuevo.', '2023-11-11', 5, 20, 50);
+(1, 11, 'Aburrido', 'No aporta nada nuevo.', '2023-11-11', 5, 20, 50),
+(1, 2, 'Increíble juego', 'Una historia que me atrapó de principio a fin.', '2024-02-10', 10, 230, 5),
+(2, 5, 'Visualmente impresionante', 'El diseño del mundo es espectacular.', '2024-01-15', 9, 180, 4),
+(3, 8, 'Rejugable', 'Cada partida se siente diferente.', '2023-12-12', 8, 200, 3),
+(4, 10, 'Meh', 'Esperaba más de este juego, un poco repetitivo.', '2023-11-07', 6, 120, 50),
+(5, 6, 'Lo mejor de la saga', 'Si eres fan, este es un imprescindible.', '2023-10-18', 10, 270, 8),
+(6, 1, 'Mejor juego del año', 'Sin palabras, lo mejor que he jugado en mucho tiempo.', '2023-09-20', 10, 320, 2),
+(7, 9, 'Difícil pero satisfactorio', 'Los jefes son un reto, pero vale la pena.', '2023-08-22', 9, 190, 6),
+(8, 4, 'Un clásico moderno', 'Definitivamente uno de los mejores de la generación.', '2023-07-14', 9, 250, 5),
+(9, 3, 'No tan bueno', 'Esperaba mucho más, se siente incompleto.', '2023-06-10', 5, 100, 150),
+(10, 7, 'Diversión pura', 'Este juego nunca se vuelve aburrido.', '2023-05-05', 9, 300, 1),
+(11, 11, 'Monótono', 'Jugabilidad repetitiva, no lo recomendaría.', '2023-04-02', 4, 50, 70),
+(12, 2, 'Historia épica', 'El final me dejó impactado.', '2023-03-22', 10, 220, 3),
+(13, 6, 'Vale cada centavo', 'Gran inversión de tiempo.', '2023-02-18', 10, 210, 4),
+(14, 8, 'Perfecto', 'No cambiaría nada de este juego.', '2023-01-11', 10, 400, 0),
+(15, 1, 'Jugabilidad top', 'Los controles se sienten súper fluidos.', '2022-12-20', 9, 290, 2),
+(16, 4, 'Historia emotiva', 'Uno de los mejores guiones en un videojuego.', '2022-11-08', 10, 275, 3),
+(17, 9, 'Muy desafiante', 'No es para todos, pero me encantó.', '2022-10-17', 9, 150, 6),
+(18, 3, 'Desilusión', 'El hype me mató las expectativas.', '2022-09-14', 5, 60, 120),
+(19, 5, 'Mejor en cooperativo', 'Si juegas con amigos es más divertido.', '2022-08-21', 8, 230, 4),
+(20, 7, 'Mejor DLC', 'Las expansiones valen la pena.', '2022-07-30', 10, 310, 1);
 
    
 
@@ -133,10 +236,34 @@ INSERT INTO Plataformas (nombre) VALUES
 ('PC'),
 ('PlayStation 5'),
 ('PlayStation 4'),
+('PlayStation 3'),
+('PlayStation Vita'),
 ('Xbox Series X|S'),
 ('Xbox One'),
+('Xbox 360'),
 ('Nintendo Switch'),
-('Steam Deck');
+('Nintendo Wii U'),
+('Nintendo 3DS'),
+('Steam Deck'),
+('Google Stadia'),
+('Amazon Luna'),
+('iOS'),
+('Android'),
+('Oculus Quest'),
+('HTC Vive'),
+('PlayStation VR'),
+('Meta Quest 2'),
+('GeForce Now'),
+('Apple Arcade'),
+('Google Play Games'),
+('Linux'),
+('MacOS'),
+('Chromebook'),
+('Nintendo DS'),
+('Sega Dreamcast'),
+('Atari VCS'),
+('Commodore 64');
+
 
 INSERT INTO Generos (nombre) VALUES 
 ('Acción'),
@@ -148,88 +275,111 @@ INSERT INTO Generos (nombre) VALUES
 ('Simulación'),
 ('Plataformas'),
 ('Shooter'),
-('Survival');
-
+('Survival'),
+('Battle Royale'),
+('Puzzle'),
+('Roguelike'),
+('Hack and Slash'),
+('MMORPG'),
+('Carreras'),
+('Deportes'),
+('Lucha'),
+('Terror'),
+('Exploración'),
+('Defensa de Torres'),
+('Arcade'),
+('RTS'),
+('Táctico'),
+('Futurista'),
+('Stealth'),
+('Narrativo'),
+('Cyberpunk'),
+('Western'),
+('Educativo');
 
 INSERT INTO VideojuegoGenero (fkIdVideojuego, fkIdGenero) VALUES
-(1, 1), -- The Legend of Zelda: Breath of the Wild - Acción
-(1, 2), -- The Legend of Zelda: Breath of the Wild - Aventura
-(1, 4), -- The Legend of Zelda: Breath of the Wild - Mundo Abierto
+(1, 1), (1, 2), (1, 4),  
+(2, 1), (2, 3), (2, 4),  
+(3, 3), (3, 4), (3, 9),  
+(4, 2), (4, 4), (4, 1),  
+(5, 5), (5, 2),  
+(6, 1), (6, 2),  
+(7, 10), (7, 4),  
+(8, 1), (8, 3), (8, 4),  
+(9, 1), (9, 3),  
+(10, 8), (10, 2),  
+(11, 6), (11, 7),  
+(12, 9), (12, 1),  
+(13, 4), (13, 1),  
+(14, 11), (14, 9),  
+(15, 12), (15, 6),  
+(16, 6), (16, 7),  
+(17, 17), (17, 16),  
+(18, 10), (18, 19),  
+(19, 9), (19, 1),  
+(20, 1), (20, 3),  
+(21, 1), (21, 2),  
+(22, 1), (22, 3),  
+(23, 3), (23, 4),  
+(24, 2), (24, 4),  
+(25, 5), (25, 2),  
+(26, 1), (26, 2),  
+(27, 10), (27, 4),  
+(28, 1), (28, 3), (28, 4),  
+(29, 1), (29, 3),  
+(30, 8), (30, 2),  
+(31, 6), (31, 7),  
+(32, 9), (32, 1),  
+(33, 4), (33, 5),  
+(34, 2), (34, 3),  
+(35, 10), (35, 1),  
+(36, 3), (36, 5),  
+(37, 2), (37, 6),  
+(38, 1), (38, 9),  
+(39, 7), (39, 10),  
+(40, 3), (40, 4);
 
-(2, 1), -- Elden Ring - Acción
-(2, 2), -- Elden Ring - Aventura
-(2, 3), -- Elden Ring - RPG
-(2, 4), -- Elden Ring - Mundo Abierto
-
-(3, 3), -- Cyberpunk 2077 - RPG
-(3, 4), -- Cyberpunk 2077 - Mundo Abierto
-(3, 9), -- Cyberpunk 2077 - Shooter
-
-(4, 2), -- Red Dead Redemption 2 - Aventura
-(4, 4), -- Red Dead Redemption 2 - Mundo Abierto
-(4, 1), -- Red Dead Redemption 2 - Acción
-
-(5, 5), -- Hollow Knight - Metroidvania
-(5, 2), -- Hollow Knight - Aventura
-
-(6, 1), -- God of War - Acción
-(6, 2), -- God of War - Aventura
-
-(7, 10), -- Minecraft - Survival
-(7, 4), -- Minecraft - Mundo Abierto
-
-(8, 1), -- The Witcher 3: Wild Hunt - Acción
-(8, 3), -- The Witcher 3: Wild Hunt - RPG
-(8, 4), -- The Witcher 3: Wild Hunt - Mundo Abierto
-
-(9, 1), -- Dark Souls III - Acción
-(9, 3), -- Dark Souls III - RPG
-
-(10, 8), -- Super Mario Odyssey - Plataformas
-(10, 2), -- Super Mario Odyssey - Aventura
-
-(11, 6), -- F1 Manager - Estrategia
-(11, 7); -- F1 Manager - Simulación
 
 INSERT INTO VideojuegoPlataforma (fkIdVideojuego, fkIdPlataforma) VALUES
-(1, 6),  -- The Legend of Zelda: Breath of the Wild - Nintendo Switch
-(2, 2),  -- Elden Ring - PlayStation 5
-(2, 3),  -- Elden Ring - PlayStation 4
-(2, 4),  -- Elden Ring - Xbox Series X|S
-(2, 5),  -- Elden Ring - Xbox One
-(2, 1),  -- Elden Ring - PC
+(1, 6),  
+(2, 1), (2, 2), (2, 3), (2, 4),  
+(3, 1), (3, 3), (3, 4), (3, 5),  
+(4, 1), (4, 3), (4, 5),  
+(5, 1), (5, 6),  
+(6, 2), (6, 3),  
+(7, 1), (7, 2), (7, 4), (7, 6),  
+(8, 1), (8, 3), (8, 5),  
+(9, 1), (9, 3), (9, 5),  
+(10, 6),  
+(11, 1), (11, 2), (11, 4),  
+(12, 1), (12, 3), (12, 5),  
+(13, 2), (13, 3), (13, 6),  
+(14, 1), (14, 3), (14, 5),  
+(15, 6), (15, 10),  
+(16, 1), (16, 3), (16, 6),  
+(17, 1), (17, 3), (17, 5),  
+(18, 1), (18, 3), (18, 5),  
+(19, 1), (19, 3), (19, 5),  
+(20, 1), (20, 3), (20, 5),  
+(21, 1), (21, 2), (21, 3), (21, 4),  
+(22, 1), (22, 2), (22, 3),  
+(23, 1), (23, 3), (23, 5),  
+(24, 1), (24, 3), (24, 5),  
+(25, 1), (25, 3), (25, 5),  
+(26, 6), (26, 10),  
+(27, 1), (27, 3), (27, 6),  
+(28, 1), (28, 3), (28, 5),  
+(29, 1), (29, 3), (29, 5),  
+(30, 1), (30, 3), (30, 5),  
+(31, 1), (31, 2), (31, 3),  
+(32, 1), (32, 3), (32, 5),  
+(33, 1), (33, 3), (33, 5),  
+(34, 1), (34, 3), (34, 5),  
+(35, 1), (35, 3), (35, 5),  
+(36, 1), (36, 3), (36, 5),  
+(37, 1), (37, 3), (37, 5),  
+(38, 1), (38, 3), (38, 5),  
+(39, 1), (39, 3), (39, 5),  
+(40, 1), (40, 3), (40, 5);
 
-(3, 1),  -- Cyberpunk 2077 - PC
-(3, 3),  -- Cyberpunk 2077 - PlayStation 4
-(3, 4),  -- Cyberpunk 2077 - Xbox Series X|S
-(3, 5),  -- Cyberpunk 2077 - Xbox One
-
-(4, 3),  -- Red Dead Redemption 2 - PlayStation 4
-(4, 5),  -- Red Dead Redemption 2 - Xbox One
-(4, 1),  -- Red Dead Redemption 2 - PC
-
-(5, 1),  -- Hollow Knight - PC
-(5, 6),  -- Hollow Knight - Nintendo Switch
-
-(6, 2),  -- God of War - PlayStation 5
-(6, 3),  -- God of War - PlayStation 4
-
-(7, 1),  -- Minecraft - PC
-(7, 6),  -- Minecraft - Nintendo Switch
-(7, 2),  -- Minecraft - PlayStation 5
-(7, 4),  -- Minecraft - Xbox Series X|S
-
-(8, 1),  -- The Witcher 3: Wild Hunt - PC
-(8, 3),  -- The Witcher 3: Wild Hunt - PlayStation 4
-(8, 5),  -- The Witcher 3: Wild Hunt - Xbox One
-
-(9, 1),  -- Dark Souls III - PC
-(9, 3),  -- Dark Souls III - PlayStation 4
-(9, 5),  -- Dark Souls III - Xbox One
-
-(10, 6), -- Super Mario Odyssey - Nintendo Switch
-
-(11, 1), -- F1 Manager - PC
-(11, 2), -- F1 Manager - PlayStation 5
-(11, 4); -- F1 Manager - Xbox Series X|S
 
