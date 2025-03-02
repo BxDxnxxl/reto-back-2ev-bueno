@@ -87,7 +87,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE Companias SET Nombre = @Nombre WHERE Id = @Id";
+                string query = "UPDATE Companias SET Nombre = @Nombre,  WHERE Id = @Id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -122,7 +122,7 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT TOP 5 c.Id, c.Nombre, COUNT(v.Id) AS CantidadVideojuegos
+                    SELECT TOP 5 c.id, c.nombre, c.url_imagen AS Compania
                     FROM Companias c
                     LEFT JOIN Videojuegos v ON c.Id = v.FkIdCompania
                     GROUP BY c.Id, c.Nombre

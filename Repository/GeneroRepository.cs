@@ -121,7 +121,7 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT TOP 5 g.Id, g.Nombre, COUNT(v.Id) AS CantidadVideojuegos
+                     SELECT TOP 5 g.id, g.nombre, g.url_imagen AS Genero
                     FROM Generos g
                     LEFT JOIN Videojuegos v ON g.Id = v.FkIdGenero
                     GROUP BY g.Id, g.Nombre

@@ -24,12 +24,14 @@ CREATE TABLE UsuarioRol (
 
 CREATE TABLE Companias (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    nombre NVARCHAR(100) UNIQUE NOT NULL
+    nombre NVARCHAR(100) UNIQUE NOT NULL,
+    url_imagen varchar(255)
 );
 
 CREATE TABLE Generos (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    nombre NVARCHAR(50) UNIQUE NOT NULL
+    nombre NVARCHAR(50) UNIQUE NOT NULL,
+    url_imagen varchar(255)
 );
 
 CREATE TABLE Plataformas (
@@ -78,16 +80,40 @@ CREATE TABLE Comentarios (
     FOREIGN KEY (fkIdVideojuego) REFERENCES Videojuegos(id) ON DELETE CASCADE
 );
 
-INSERT INTO Companias (Nombre) VALUES 
-('Nintendo'),          
-('FromSoftware'),      
-('CD Projekt Red'),    
-('Rockstar Games'),    
-('Team Cherry'),       
-('Santa Monica Studio'), 
-('Mojang'),           
-('Bandai Namco'),      
-('Ubisoft');  
+INSERT INTO Companias (Nombre, url_imagen) VALUES 
+('Nintendo', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Nintendo.svg'),          
+('FromSoftware', 'https://upload.wikimedia.org/wikipedia/commons/4/47/FromSoftware_logo.svg'),      
+('CD Projekt Red', 'https://upload.wikimedia.org/wikipedia/commons/5/5e/CD_Projekt_logo.svg'),    
+('Rockstar Games', 'https://upload.wikimedia.org/wikipedia/commons/8/82/Rockstar_North_logo.svg'),    
+('Team Cherry', 'https://example.com/imagenes/team_cherry.jpg'),       
+('Santa Monica Studio', 'https://example.com/imagenes/santa_monica.jpg'), 
+('Mojang', 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Mojang_Studios_Logo.svg'),           
+('Bandai Namco', 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Bandai_Namco_Entertainment_Logo.svg'),      
+('Ubisoft', 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Ubisoft_logo.svg'),
+('Bethesda Softworks', 'https://upload.wikimedia.org/wikipedia/commons/0/00/Bethesda_Softworks_logo.svg'),
+('Electronic Arts', 'https://upload.wikimedia.org/wikipedia/commons/5/52/Electronic_Arts_Logo.svg'),
+('Activision Blizzard', 'https://upload.wikimedia.org/wikipedia/commons/1/17/Activision_Blizzard_logo.svg'),
+('Sony Interactive Entertainment', 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Sony_logo.svg'),
+('Microsoft Studios', 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Microsoft_Logo.svg'),
+('Square Enix', 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Square_Enix_logo.svg'),
+('Capcom', 'https://upload.wikimedia.org/wikipedia/commons/4/44/Capcom_logo.svg'),
+('Sega', 'https://upload.wikimedia.org/wikipedia/commons/5/54/SEGA_logo.svg'),
+('Konami', 'https://upload.wikimedia.org/wikipedia/commons/2/25/Konami_Logo.svg'),
+('2K Games', 'https://upload.wikimedia.org/wikipedia/commons/2/2c/2K_Games_logo.svg'),
+('Warner Bros. Games', 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Warner_Bros_Games_Logo.svg'),
+('Valve Corporation', 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Valve_logo.svg'),
+('Epic Games', 'https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg'),
+('Insomniac Games', 'https://upload.wikimedia.org/wikipedia/commons/2/24/Insomniac_Games_logo.svg'),
+('Monolith Soft', 'https://example.com/imagenes/monolith_soft.jpg'),
+('BioWare', 'https://upload.wikimedia.org/wikipedia/commons/3/3b/BioWare_Logo.svg'),
+('PlatinumGames', 'https://example.com/imagenes/platinum_games.jpg'),
+('Tango Gameworks', 'https://example.com/imagenes/tango_gameworks.jpg'),
+('Rebellion Developments', 'https://example.com/imagenes/rebellion.jpg'),
+('THQ Nordic', 'https://example.com/imagenes/thq_nordic.jpg'),
+('Remedy Entertainment', 'https://upload.wikimedia.org/wikipedia/commons/7/74/Remedy_Entertainment_logo.svg'),
+('Obsidian Entertainment', 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Obsidian_Entertainment_Logo.svg'),
+('Larian Studios', 'https://example.com/imagenes/larian_studios.jpg'),
+('Supergiant Games', 'https://example.com/imagenes/supergiant_games.jpg');
 
 -- Insertar usuarios
 INSERT INTO Usuarios (Id, Username, Email, Contrasenia, Nombre, Apellido1, Apellido2, ProfilePic)
@@ -138,17 +164,37 @@ INSERT INTO Plataformas (nombre) VALUES
 ('Nintendo Switch'),
 ('Steam Deck');
 
-INSERT INTO Generos (nombre) VALUES 
-('Acción'),
-('Aventura'),
-('RPG'),
-('Mundo Abierto'),
-('Metroidvania'),
-('Estrategia'),
-('Simulación'),
-('Plataformas'),
-('Shooter'),
-('Survival');
+INSERT INTO Generos (nombre, url_imagen) VALUES 
+('Acción', 'https://example.com/imagenes/accion.jpg'),
+('Aventura', 'https://example.com/imagenes/aventura.jpg'),
+('RPG', 'https://example.com/imagenes/rpg.jpg'),
+('Mundo Abierto', 'https://example.com/imagenes/mundo_abierto.jpg'),
+('Metroidvania', 'https://example.com/imagenes/metroidvania.jpg'),
+('Estrategia', 'https://example.com/imagenes/estrategia.jpg'),
+('Simulación', 'https://example.com/imagenes/simulacion.jpg'),
+('Plataformas', 'https://example.com/imagenes/plataformas.jpg'),
+('Shooter', 'https://example.com/imagenes/shooter.jpg'),
+('Survival', 'https://example.com/imagenes/survival.jpg'),
+('Battle Royale', 'https://example.com/imagenes/battle_royale.jpg'),
+('Puzzle', 'https://example.com/imagenes/puzzle.jpg'),
+('Roguelike', 'https://example.com/imagenes/roguelike.jpg'),
+('Hack and Slash', 'https://example.com/imagenes/hack_and_slash.jpg'),
+('MMORPG', 'https://example.com/imagenes/mmorpg.jpg'),
+('Carreras', 'https://example.com/imagenes/carreras.jpg'),
+('Deportes', 'https://example.com/imagenes/deportes.jpg'),
+('Lucha', 'https://example.com/imagenes/lucha.jpg'),
+('Terror', 'https://example.com/imagenes/terror.jpg'),
+('Exploración', 'https://example.com/imagenes/exploracion.jpg'),
+('Defensa de Torres', 'https://example.com/imagenes/defensa_de_torres.jpg'),
+('Arcade', 'https://example.com/imagenes/arcade.jpg'),
+('RTS', 'https://example.com/imagenes/rts.jpg'),
+('Táctico', 'https://example.com/imagenes/tactico.jpg'),
+('Futurista', 'https://example.com/imagenes/futurista.jpg'),
+('Stealth', 'https://example.com/imagenes/stealth.jpg'),
+('Narrativo', 'https://example.com/imagenes/narrativo.jpg'),
+('Cyberpunk', 'https://example.com/imagenes/cyberpunk.jpg'),
+('Western', 'https://example.com/imagenes/western.jpg'),
+('Educativo', 'https://example.com/imagenes/educativo.jpg');
 
 
 INSERT INTO VideojuegoGenero (fkIdVideojuego, fkIdGenero) VALUES
