@@ -268,9 +268,9 @@ namespace Videojuegos.Repositories
                     LEFT JOIN Plataformas p ON vp.fkIdPlataforma = p.Id
                     WHERE 1=1";
 
-                if (!string.IsNullOrEmpty(compania)) query += " AND c.Nombre RLIKE @Compania";
-                if (!string.IsNullOrEmpty(genero)) query += " AND g.Nombre RLIKE @Genero";
-                if (!string.IsNullOrEmpty(plataforma)) query += " AND p.Nombre RLIKE @Plataforma";
+                if (!string.IsNullOrEmpty(compania)) query += " AND c.Nombre LIKE '%' + @Compania + '%'";
+                if (!string.IsNullOrEmpty(genero)) query += " AND g.Nombre LIKE '%' + @Genero + '%'";
+                if (!string.IsNullOrEmpty(plataforma)) query += " AND p.Nombre LIKE '%' + @Plataforma + '%'";
 
                 using (var command = new SqlCommand(query, connection))
                 {

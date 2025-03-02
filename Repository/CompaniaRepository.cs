@@ -21,7 +21,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT Id, Nombre FROM Companias";
+                string query = "SELECT Id, Nombre, url_imagen FROM Companias";
 
                 using (var command = new SqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -31,7 +31,8 @@ namespace Videojuegos.Repositories
                         companias.Add(new Compania
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1)
+                            Nombre = reader.GetString(1),
+                            UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                         });
                     }
                 }
@@ -46,7 +47,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT Id, Nombre FROM Companias WHERE Id = @Id";
+                string query = "SELECT Id, Nombre, url_imagen FROM Companias WHERE Id = @Id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -58,7 +59,8 @@ namespace Videojuegos.Repositories
                             compania = new Compania
                             {
                                 Id = reader.GetInt32(0),
-                                Nombre = reader.GetString(1)
+                                Nombre = reader.GetString(1),
+                                UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                             };
                         }
                     }
@@ -72,11 +74,11 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Companias (Nombre) VALUES (@Nombre)";
-
+                string query = "INSERT INTO Companias (Nombre, url_imagen) VALUES (@Nombre, @UrlImagen)";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Nombre", compania.Nombre);
+                    command.Parameters.AddWithValue("@UrlImagen", (object?)compania.UrlImagen ?? DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -87,12 +89,13 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE Companias SET Nombre = @Nombre WHERE Id = @Id";
+                string query = "UPDATE Companias SET Nombre = @Nombre, url_imagen = @UrlImagen WHERE Id = @Id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", compania.Id);
                     command.Parameters.AddWithValue("@Nombre", compania.Nombre);
+                    command.Parameters.AddWithValue("@UrlImagen", (object?)compania.UrlImagen ?? DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -122,12 +125,12 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT TOP 5 c.id, c.nombre AS Compania
-                    FROM Companias c
-                    JOIN Videojuegos v ON c.id = v.FkIdCompania
-                    JOIN Comentarios co ON v.id = co.fkIdVideojuego
-                    GROUP BY c.id, c.nombre
-                    ORDER BY AVG(co.valoracion) DESC;";
+                    SELECT TOP 5 co.id, co.nombre AS compania, co.url_imagen 
+                    FROM Companias co
+                    JOIN Videojuegos v ON co.id = v.fkIdCompania
+                    JOIN Comentarios c ON v.id = c.fkIdVideojuego
+                    GROUP BY co.id, co.nombre, co.url_imagen
+                    ORDER BY AVG(c.valoracion) DESC";
 
                 using (var command = new SqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -137,7 +140,8 @@ namespace Videojuegos.Repositories
                         companias.Add(new Compania
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1)
+                            Nombre = reader.GetString(1),
+                            UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                         });
                     }
                 }
