@@ -21,7 +21,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT Id, Nombre FROM Generos";
+                string query = "SELECT Id, Nombre, url_imagen FROM Generos";
 
                 using (var command = new SqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -31,7 +31,8 @@ namespace Videojuegos.Repositories
                         generos.Add(new Genero
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1)
+                            Nombre = reader.GetString(1),
+                            UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                         });
                     }
                 }
@@ -46,7 +47,7 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT Id, Nombre FROM Generos WHERE Id = @Id";
+                string query = "SELECT Id, Nombre, url_imagen FROM Generos WHERE Id = @Id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -58,7 +59,8 @@ namespace Videojuegos.Repositories
                             genero = new Genero
                             {
                                 Id = reader.GetInt32(0),
-                                Nombre = reader.GetString(1)
+                                Nombre = reader.GetString(1),
+                                UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                             };
                         }
                     }
@@ -72,11 +74,12 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "INSERT INTO Generos (Nombre) VALUES (@Nombre)";
+                string query = "INSERT INTO Generos (Nombre, url_imagen) VALUES (@Nombre, @UrlImagen)";
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Nombre", genero.Nombre);
+                    command.Parameters.AddWithValue("@UrlImagen", (object?)genero.UrlImagen ?? DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -87,12 +90,13 @@ namespace Videojuegos.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "UPDATE Generos SET Nombre = @Nombre WHERE Id = @Id";
+                string query = "UPDATE Generos SET Nombre = @Nombre, url_imagen = @UrlImagen WHERE Id = @Id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", genero.Id);
                     command.Parameters.AddWithValue("@Nombre", genero.Nombre);
+                    command.Parameters.AddWithValue("@UrlImagen", (object?)genero.UrlImagen ?? DBNull.Value);
                     await command.ExecuteNonQueryAsync();
                 }
             }
@@ -121,11 +125,13 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                     SELECT TOP 5 g.id, g.nombre, g.url_imagen AS Genero
+                    SELECT TOP 5 g.id, g.nombre AS Genero, g.url_imagen 
                     FROM Generos g
-                    LEFT JOIN Videojuegos v ON g.Id = v.FkIdGenero
-                    GROUP BY g.Id, g.Nombre
-                    ORDER BY CantidadVideojuegos DESC";
+                    JOIN VideojuegoGenero vg ON g.id = vg.fkIdGenero
+                    JOIN Videojuegos v ON vg.fkIdVideojuego = v.id
+                    JOIN Comentarios c ON v.id = c.fkIdVideojuego
+                    GROUP BY g.id, g.nombre, g.url_imagen
+                    ORDER BY AVG(c.valoracion) DESC";
 
                 using (var command = new SqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
@@ -135,7 +141,8 @@ namespace Videojuegos.Repositories
                         generos.Add(new Genero
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1)
+                            Nombre = reader.GetString(1),
+                            UrlImagen = reader.IsDBNull(2) ? null : reader.GetString(2)
                         });
                     }
                 }
