@@ -80,6 +80,7 @@ CREATE TABLE Comentarios (
     FOREIGN KEY (fkIdVideojuego) REFERENCES Videojuegos(id) ON DELETE CASCADE
 );
 
+-- Inserts de Companias (correcto, sin cambios)
 INSERT INTO Companias (Nombre, url_imagen) VALUES 
 ('Nintendo', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Nintendo.svg'),          
 ('FromSoftware', 'https://upload.wikimedia.org/wikipedia/commons/4/47/FromSoftware_logo.svg'),      
@@ -115,7 +116,7 @@ INSERT INTO Companias (Nombre, url_imagen) VALUES
 ('Larian Studios', 'https://example.com/imagenes/larian_studios.jpg'),
 ('Supergiant Games', 'https://example.com/imagenes/supergiant_games.jpg');
 
--- Insertar usuarios
+-- Inserts de Usuarios (correcto, sin cambios)
 INSERT INTO Usuarios (Username, Email, contraseña, Nombre, Apellido1, Apellido2, ProfilePic)
 VALUES
 ('aaaaa', 'a@b.com', '123', NULL, NULL, NULL, NULL),
@@ -153,7 +154,7 @@ VALUES
 ('francisco_gam', 'francisco@example.com', 'franciscoPro', 'Francisco', 'Mejía', 'Trujillo', NULL),
 ('roberto_77', 'roberto@example.com', 'robertoPass', 'Roberto', 'Cortés', 'Ojeda', NULL);
 
--- Insertar videojuegos
+-- Inserts de Videojuegos (corregido, relaciones de compañías)
 INSERT INTO Videojuegos (Titulo, Descripcion, AnioSalida, Pegi, Caratula, FkIdCompania) VALUES 
 ('The Legend of Zelda: Breath of the Wild', 'Un juego de acción y aventura en un mundo abierto.', '2017-03-03', 12, 'src/assets/img/zelda_botw.jpg', 1),
 ('Elden Ring', 'Un RPG de acción ambientado en un mundo de fantasía.', '2022-02-25', 16, 'src/assets/img/elden_ring.jpg', 2),
@@ -163,41 +164,41 @@ INSERT INTO Videojuegos (Titulo, Descripcion, AnioSalida, Pegi, Caratula, FkIdCo
 ('God of War', 'Kratos regresa en una historia mitológica nórdica.', '2018-04-20', 18, 'src/assets/img/god_of_war.jpg', 6),
 ('Minecraft', 'Un juego de construcción y exploración en un mundo abierto.', '2011-11-18', 7, 'src/assets/img/minecraft.jpg', 7),
 ('The Witcher 3: Wild Hunt', 'Un RPG de acción basado en la saga de Geralt de Rivia.', '2015-05-19', 18, 'src/assets/img/witcher_3.jpg', 3),
-('Dark Souls III', 'Un RPG de acción desafiante y oscuro.', '2016-04-12', 16, 'src/assets/img/dark_souls_3.jpg', 8),
+('Dark Souls III', 'Un RPG de acción desafiante y oscuro.', '2016-04-12', 16, 'src/assets/img/dark_souls_3.jpg', 2), -- Corregido: era Bandai, ahora FromSoftware
 ('Super Mario Odyssey', 'Mario explora diversos mundos en esta aventura de plataformas.', '2017-10-27', 3, 'src/assets/img/super_mario_odyssey.jpg', 1),
-('F1 Manager', 'Juego de simulación y gestión de equipos de Fórmula 1.', '2025-02-19', 3, 'src/assets/img/zzzzz.jpg', 9),
-('Halo Infinite', 'FPS futurista con acción intensa.', '2021-12-08', 16, 'src/assets/img/halo_infinite.jpg', 4),
-('GTA V', 'Mundo abierto con crimen y acción.', '2013-09-17', 18, 'src/assets/img/gta_v.jpg', 2),
-('Fortnite', 'Battle Royale multijugador.', '2017-07-21', 12, 'src/assets/img/fortnite.jpg', 3),
-('Among Us', 'Juego de deducción social.', '2018-06-15', 7, 'src/assets/img/among_us.jpg', 6),
-('League of Legends', 'MOBA con estrategia en equipo.', '2009-10-27', 12, 'src/assets/img/lol.jpg', 7),
-('FIFA 23', 'Simulación de fútbol con licencias oficiales.', '2022-09-30', 3, 'src/assets/img/fifa_23.jpg', 5),
-('Resident Evil Village', 'Horror de supervivencia.', '2021-05-07', 18, 'src/assets/img/re_village.jpg', 8),
-('Doom Eternal', 'Shooter en primera persona con acción intensa.', '2020-03-20', 18, 'src/assets/img/doom_eternal.jpg', 4),
-('Sekiro: Shadows Die Twice', 'Juego de acción con combate desafiante.', '2019-03-22', 18, 'src/assets/img/sekiro.jpg', 9),
-('Horizon Forbidden West', 'Aventura en un mundo postapocalíptico.', '2022-02-18', 16, 'src/assets/img/horizon_fw.jpg', 1),
-('Final Fantasy VII Remake', 'Remake del clásico RPG.', '2020-04-10', 16, 'src/assets/img/ff7_remake.jpg', 1),
-('CyberConnect: Future Wars', 'Juego de estrategia en tiempo real.', '2023-08-25', 12, 'src/assets/img/cyberconnect_fw.jpg', 3),
-('The Sims 4', 'Simulación de vida con muchas opciones.', '2014-09-02', 12, 'src/assets/img/the_sims_4.jpg', 5),
-('Valorant', 'Shooter táctico multijugador.', '2020-06-02', 16, 'src/assets/img/valorant.jpg', 7),
-('Elden Scrolls Online', 'MMORPG de mundo abierto.', '2014-04-04', 16, 'src/assets/img/eso.jpg', 2),
-('Call of Duty: Warzone', 'Shooter Battle Royale.', '2020-03-10', 18, 'src/assets/img/warzone.jpg', 4),
-('The Last of Us Part II', 'Aventura con historia profunda.', '2020-06-19', 18, 'src/assets/img/tlou2.jpg', 1),
-('Overwatch 2', 'Shooter multijugador por equipos.', '2022-10-04', 12, 'src/assets/img/overwatch2.jpg', 5),
-('Stardew Valley', 'Simulación de granja con exploración.', '2016-02-26', 7, 'src/assets/img/stardew_valley.jpg', 6),
-('Monster Hunter Rise', 'Caza de monstruos en un mundo épico.', '2021-03-26', 12, 'src/assets/img/mh_rise.jpg', 9),
-('No Man’s Sky', 'Exploración espacial con galaxias infinitas.', '2016-08-09', 12, 'src/assets/img/no_mans_sky.jpg', 3),
-('Terraria', 'Sandbox con aventura y construcción.', '2011-05-16', 7, 'src/assets/img/terraria.jpg', 7),
-('Rainbow Six Siege', 'Shooter táctico en equipo.', '2015-12-01', 18, 'src/assets/img/r6_siege.jpg', 2),
-('Persona 5', 'RPG con historia profunda y estrategia.', '2016-09-15', 16, 'src/assets/img/persona5.jpg', 1),
-('Left 4 Dead 2', 'Shooter cooperativo contra zombies.', '2009-11-17', 18, 'src/assets/img/l4d2.jpg', 3),
-('Hitman 3', 'Sigilo y asesinatos estratégicos.', '2021-01-20', 18, 'src/assets/img/hitman3.jpg', 5),
-('Dead by Daylight', 'Juego de terror asimétrico.', '2016-06-14', 18, 'src/assets/img/dbd.jpg', 6),
-('Little Nightmares II', 'Aventura de terror con puzzles.', '2021-02-11', 12, 'src/assets/img/ln2.jpg', 8),
-('Fall Guys', 'Carreras de obstáculos divertidas.', '2020-08-04', 3, 'src/assets/img/fall_guys.jpg', 7),
-('Hades', 'Roguelike con acción y mitología.', '2020-09-17', 12, 'src/assets/img/hades.jpg', 9);
+('F1 Manager', 'Juego de simulación y gestión de equipos de Fórmula 1.', '2025-02-19', 3, 'src/assets/img/zzzzz.jpg', 11), -- Corregido: era Ubisoft, ahora EA (más probable para F1)
+('Halo Infinite', 'FPS futurista con acción intensa.', '2021-12-08', 16, 'src/assets/img/halo_infinite.jpg', 14), -- Corregido: era Rockstar, ahora Microsoft
+('GTA V', 'Mundo abierto con crimen y acción.', '2013-09-17', 18, 'src/assets/img/gta_v.jpg', 4), -- Corregido: era FromSoftware, ahora Rockstar
+('Fortnite', 'Battle Royale multijugador.', '2017-07-21', 12, 'src/assets/img/fortnite.jpg', 22), -- Corregido: era CD Projekt, ahora Epic Games
+('Among Us', 'Juego de deducción social.', '2018-06-15', 7, 'src/assets/img/among_us.jpg', 7), -- Corregido: era Santa Monica, ahora un indie tipo Mojang
+('League of Legends', 'MOBA con estrategia en equipo.', '2009-10-27', 12, 'src/assets/img/lol.jpg', 22), -- Corregido: era Mojang, ahora similar a Epic (Riot no está pero Epic es más cercano)
+('FIFA 23', 'Simulación de fútbol con licencias oficiales.', '2022-09-30', 3, 'src/assets/img/fifa_23.jpg', 11), -- Corregido: era Team Cherry, ahora EA
+('Resident Evil Village', 'Horror de supervivencia.', '2021-05-07', 18, 'src/assets/img/re_village.jpg', 16), -- Corregido: era Bandai, ahora Capcom
+('Doom Eternal', 'Shooter en primera persona con acción intensa.', '2020-03-20', 18, 'src/assets/img/doom_eternal.jpg', 10), -- Corregido: era Rockstar, ahora Bethesda
+('Sekiro: Shadows Die Twice', 'Juego de acción con combate desafiante.', '2019-03-22', 18, 'src/assets/img/sekiro.jpg', 2), -- Corregido: era Ubisoft, ahora FromSoftware
+('Horizon Forbidden West', 'Aventura en un mundo postapocalíptico.', '2022-02-18', 16, 'src/assets/img/horizon_fw.jpg', 13), -- Corregido: era Nintendo, ahora Sony
+('Final Fantasy VII Remake', 'Remake del clásico RPG.', '2020-04-10', 16, 'src/assets/img/ff7_remake.jpg', 15), -- Corregido: era Nintendo, ahora Square Enix
+('CyberConnect: Future Wars', 'Juego de estrategia en tiempo real.', '2023-08-25', 12, 'src/assets/img/cyberconnect_fw.jpg', 8), -- Corregido: era CD Projekt, ahora Bandai Namco
+('The Sims 4', 'Simulación de vida con muchas opciones.', '2014-09-02', 12, 'src/assets/img/the_sims_4.jpg', 11), -- Corregido: era Team Cherry, ahora EA
+('Valorant', 'Shooter táctico multijugador.', '2020-06-02', 16, 'src/assets/img/valorant.jpg', 22), -- Corregido: era Mojang, ahora Epic (similar a Riot)
+('Elder Scrolls Online', 'MMORPG de mundo abierto.', '2014-04-04', 16, 'src/assets/img/eso.jpg', 10), -- Corregido: nombre corregido (era Elden Scrolls) y era FromSoftware, ahora Bethesda
+('Call of Duty: Warzone', 'Shooter Battle Royale.', '2020-03-10', 18, 'src/assets/img/warzone.jpg', 12), -- Corregido: era Rockstar, ahora Activision
+('The Last of Us Part II', 'Aventura con historia profunda.', '2020-06-19', 18, 'src/assets/img/tlou2.jpg', 13), -- Corregido: era Nintendo, ahora Sony
+('Overwatch 2', 'Shooter multijugador por equipos.', '2022-10-04', 12, 'src/assets/img/overwatch2.jpg', 12), -- Corregido: era Team Cherry, ahora Activision
+('Stardew Valley', 'Simulación de granja con exploración.', '2016-02-26', 7, 'src/assets/img/stardew_valley.jpg', 33), -- Corregido: era Santa Monica, ahora un indie más apropiado
+('Monster Hunter Rise', 'Caza de monstruos en un mundo épico.', '2021-03-26', 12, 'src/assets/img/mh_rise.jpg', 16),
+('No Mans Sky', 'Exploración espacial con galaxias infinitas.', '2016-08-09', 12, 'src/assets/img/no_mans_sky.jpg', 7),
+('Terraria', 'Sandbox con aventura y construcción.', '2011-05-16', 7, 'src/assets/img/terraria.jpg', 33), -- Corregido: era Mojang, ahora indie similar
+('Rainbow Six Siege', 'Shooter táctico en equipo.', '2015-12-01', 18, 'src/assets/img/r6_siege.jpg', 9), -- Corregido: era FromSoftware, ahora Ubisoft
+('Persona 5', 'RPG con historia profunda y estrategia.', '2016-09-15', 16, 'src/assets/img/persona5.jpg', 17), -- Corregido: era Nintendo, ahora Sega (Atlus)
+('Left 4 Dead 2', 'Shooter cooperativo contra zombies.', '2009-11-17', 18, 'src/assets/img/l4d2.jpg', 21), -- Corregido: era CD Projekt, ahora Valve
+('Hitman 3', 'Sigilo y asesinatos estratégicos.', '2021-01-20', 18, 'src/assets/img/hitman3.jpg', 13), -- Corregido: era Team Cherry, ahora Sony/IO (cercano a Sony)
+('Dead by Daylight', 'Juego de terror asimétrico.', '2016-06-14', 18, 'src/assets/img/dbd.jpg', 8), -- Corregido: era Santa Monica, ahora Bandai Namco (publisher)
+('Little Nightmares II', 'Aventura de terror con puzzles.', '2021-02-11', 12, 'src/assets/img/ln2.jpg', 8), -- Corregido: era Bandai, sin cambios (correcto)
+('Fall Guys', 'Carreras de obstáculos divertidas.', '2020-08-04', 3, 'src/assets/img/fall_guys.jpg', 22), -- Corregido: era Mojang, ahora Epic Games (actual dueño)
+('Hades', 'Roguelike con acción y mitología.', '2020-09-17', 12, 'src/assets/img/hades.jpg', 33); -- Corregido: era Ubisoft, ahora Supergiant Games
 
--- Insertar comentarios
+-- Inserts de Comentarios (correcto, sin cambios)
 INSERT INTO Comentarios (fkIdUsuario, fkIdVideojuego, Titulo, Texto, Fecha, Valoracion, Likes, Dislikes)
 VALUES
 (1, 1, 'Increíble', 'Un juego innovador y hermoso.', '2023-01-10', 10, 200, 5),
@@ -232,8 +233,7 @@ VALUES
 (19, 5, 'Mejor en cooperativo', 'Si juegas con amigos es más divertido.', '2022-08-21', 8, 230, 4),
 (20, 7, 'Mejor DLC', 'Las expansiones valen la pena.', '2022-07-30', 10, 310, 1);
 
-   
-
+-- Inserts de Plataformas (correcto, sin cambios)
 INSERT INTO Plataformas (nombre) VALUES 
 ('PC'),
 ('PlayStation 5'),
@@ -266,8 +266,7 @@ INSERT INTO Plataformas (nombre) VALUES
 ('Atari VCS'),
 ('Commodore 64');
 
-
-
+-- Inserts de Generos (correcto, sin cambios)
 INSERT INTO Generos (nombre, url_imagen) VALUES 
 ('Acción', 'https://example.com/imagenes/accion.jpg'),
 ('Aventura', 'https://example.com/imagenes/aventura.jpg'),
@@ -300,89 +299,168 @@ INSERT INTO Generos (nombre, url_imagen) VALUES
 ('Western', 'https://example.com/imagenes/western.jpg'),
 ('Educativo', 'https://example.com/imagenes/educativo.jpg');
 
+-- Inserts de VideojuegoGenero (corregido, con relaciones actualizadas)
 INSERT INTO VideojuegoGenero (fkIdVideojuego, fkIdGenero) VALUES
-(1, 1), (1, 2), (1, 4),  
-(2, 1), (2, 3), (2, 4),  
-(3, 3), (3, 4), (3, 9),  
-(4, 2), (4, 4), (4, 1),  
-(5, 5), (5, 2),  
-(6, 1), (6, 2),  
-(7, 10), (7, 4),  
-(8, 1), (8, 3), (8, 4),  
-(9, 1), (9, 3),  
-(10, 8), (10, 2),  
-(11, 6), (11, 7),  
-(12, 9), (12, 1),  
-(13, 4), (13, 1),  
-(14, 11), (14, 9),  
-(15, 12), (15, 6),  
-(16, 6), (16, 7),  
-(17, 17), (17, 16),  
-(18, 10), (18, 19),  
-(19, 9), (19, 1),  
-(20, 1), (20, 3),  
-(21, 1), (21, 2),  
-(22, 1), (22, 3),  
-(23, 3), (23, 4),  
-(24, 2), (24, 4),  
-(25, 5), (25, 2),  
-(26, 1), (26, 2),  
-(27, 10), (27, 4),  
-(28, 1), (28, 3), (28, 4),  
-(29, 1), (29, 3),  
-(30, 8), (30, 2),  
-(31, 6), (31, 7),  
-(32, 9), (32, 1),  
-(33, 4), (33, 5),  
-(34, 2), (34, 3),  
-(35, 10), (35, 1),  
-(36, 3), (36, 5),  
-(37, 2), (37, 6),  
-(38, 1), (38, 9),  
-(39, 7), (39, 10),  
-(40, 3), (40, 4);
+-- The Legend of Zelda: Breath of the Wild
+(1, 1), (1, 2), (1, 4), (1, 20),
 
+-- Elden Ring
+(2, 1), (2, 3), (2, 4), (2, 14),
 
+-- Cyberpunk 2077
+(3, 1), (3, 3), (3, 4), (3, 9), (3, 28),
+
+-- Red Dead Redemption 2
+(4, 1), (4, 2), (4, 4), (4, 29),
+
+-- Hollow Knight
+(5, 5), (5, 2), (5, 8),
+
+-- God of War
+(6, 1), (6, 2), (6, 14), (6, 27),
+
+-- Minecraft
+(7, 10), (7, 4), (7, 20),
+
+-- The Witcher 3: Wild Hunt
+(8, 1), (8, 3), (8, 4), (8, 27),
+
+-- Dark Souls III
+(9, 1), (9, 3), (9, 14),
+
+-- Super Mario Odyssey
+(10, 8), (10, 2), (10, 22),
+
+-- F1 Manager
+(11, 6), (11, 7), (11, 16),
+
+-- Halo Infinite
+(12, 9), (12, 1), (12, 25),
+
+-- GTA V
+(13, 1), (13, 2), (13, 4), (13, 9),
+
+-- Fortnite
+(14, 9), (14, 11), (14, 4),
+
+-- Among Us
+(15, 6), (15, 12), (15, 24),
+
+-- League of Legends
+(16, 6), (16, 1), (16, 24),
+
+-- FIFA 23
+(17, 17), (17, 7),
+
+-- Resident Evil Village
+(18, 10), (18, 19), (18, 1),
+
+-- Doom Eternal
+(19, 9), (19, 1), (19, 25),
+
+-- Sekiro: Shadows Die Twice
+(20, 1), (20, 3), (20, 14),
+
+-- Horizon Forbidden West
+(21, 1), (21, 2), (21, 4),
+
+-- Final Fantasy VII Remake
+(22, 1), (22, 3), (22, 27),
+
+-- CyberConnect: Future Wars
+(23, 6), (23, 23), (23, 25),
+
+-- The Sims 4
+(24, 7), (24, 4),
+
+-- Valorant
+(25, 9), (25, 24), (25, 1),
+
+-- Elder Scrolls Online
+(26, 3), (26, 4), (26, 15),
+
+-- Call of Duty: Warzone
+(27, 9), (27, 11), (27, 1),
+
+-- The Last of Us Part II
+(28, 1), (28, 19), (28, 2), (28, 27),
+
+-- Overwatch 2
+(29, 9), (29, 1), (29, 25),
+
+-- Stardew Valley
+(30, 7), (30, 2), (30, 20),
+
+-- Monster Hunter Rise
+(31, 1), (31, 3), (31, 10),
+
+-- No Man's Sky
+(32, 20), (32, 10), (32, 25),
+
+-- Terraria
+(33, 10), (33, 4), (33, 2), (33, 8),
+
+-- Rainbow Six Siege
+(34, 9), (34, 24), (34, 1),
+
+-- Persona 5
+(35, 3), (35, 27), (35, 24),
+
+-- Left 4 Dead 2
+(36, 9), (36, 1), (36, 19), (36, 10),
+
+-- Hitman 3
+(37, 1), (37, 26), (37, 12),
+
+-- Dead by Daylight
+(38, 19), (38, 10), (38, 1),
+
+-- Little Nightmares II
+(39, 2), (39, 19), (39, 12),
+
+-- Fall Guys
+(40, 8), (40, 22), (40, 11);
+
+-- Inserts de VideojuegoPlataforma (corregido con relaciones actualizadas)
 INSERT INTO VideojuegoPlataforma (fkIdVideojuego, fkIdPlataforma) VALUES
-(1, 6),  
-(2, 1), (2, 2), (2, 3), (2, 4),  
-(3, 1), (3, 3), (3, 4), (3, 5),  
-(4, 1), (4, 3), (4, 5),  
-(5, 1), (5, 6),  
-(6, 2), (6, 3),  
-(7, 1), (7, 2), (7, 4), (7, 6),  
-(8, 1), (8, 3), (8, 5),  
-(9, 1), (9, 3), (9, 5),  
-(10, 6),  
-(11, 1), (11, 2), (11, 4),  
-(12, 1), (12, 3), (12, 5),  
-(13, 2), (13, 3), (13, 6),  
-(14, 1), (14, 3), (14, 5),  
-(15, 6), (15, 10),  
-(16, 1), (16, 3), (16, 6),  
-(17, 1), (17, 3), (17, 5),  
-(18, 1), (18, 3), (18, 5),  
-(19, 1), (19, 3), (19, 5),  
-(20, 1), (20, 3), (20, 5),  
-(21, 1), (21, 2), (21, 3), (21, 4),  
-(22, 1), (22, 2), (22, 3),  
-(23, 1), (23, 3), (23, 5),  
-(24, 1), (24, 3), (24, 5),  
-(25, 1), (25, 3), (25, 5),  
-(26, 6), (26, 10),  
-(27, 1), (27, 3), (27, 6),  
-(28, 1), (28, 3), (28, 5),  
-(29, 1), (29, 3), (29, 5),  
-(30, 1), (30, 3), (30, 5),  
-(31, 1), (31, 2), (31, 3),  
-(32, 1), (32, 3), (32, 5),  
-(33, 1), (33, 3), (33, 5),  
-(34, 1), (34, 3), (34, 5),  
-(35, 1), (35, 3), (35, 5),  
-(36, 1), (36, 3), (36, 5),  
-(37, 1), (37, 3), (37, 5),  
-(38, 1), (38, 3), (38, 5),  
-(39, 1), (39, 3), (39, 5),  
-(40, 1), (40, 3), (40, 5);
-
+(1, 9), -- Zelda: Switch
+(2, 1), (2, 2), (2, 3), (2, 6), (2, 7), -- Elden Ring: PC, PS5, PS4, Xbox Series, Xbox One
+(3, 1), (3, 2), (3, 3), (3, 6), (3, 7), -- Cyberpunk: PC, PS5, PS4, Xbox Series, Xbox One
+(4, 1), (4, 3), (4, 7), -- RDR2: PC, PS4, Xbox One
+(5, 1), (5, 9), (5, 3), (5, 7), -- Hollow Knight: PC, Switch, PS4, Xbox One
+(6, 2), (6, 3), -- God of War: PS5, PS4
+(7, 1), (7, 2), (7, 3), (7, 6), (7, 7), (7, 9), (7, 15), (7, 16), -- Minecraft: PC, PS5, PS4, Xbox Series, Xbox One, Switch, iOS, Android
+(8, 1), (8, 2), (8, 3), (8, 6), (8, 7), (8, 9), -- Witcher 3: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(9, 1), (9, 3), (9, 7), -- Dark Souls III: PC, PS4, Xbox One
+(10, 9), -- Super Mario Odyssey: Switch
+(11, 1), (11, 2), (11, 6), -- F1 Manager: PC, PS5, Xbox Series
+(12, 1), (12, 6), (12, 7), -- Halo Infinite: PC, Xbox Series, Xbox One
+(13, 1), (13, 2), (13, 3), (13, 6), (13, 7), -- GTA V: PC, PS5, PS4, Xbox Series, Xbox One
+(14, 1), (14, 2), (14, 3), (14, 6), (14, 7), (14, 9), (14, 15), (14, 16), -- Fortnite: PC, PS5, PS4, Xbox Series, Xbox One, Switch, iOS, Android
+(15, 1), (15, 9), (15, 15), (15, 16), -- Among Us: PC, Switch, iOS, Android
+(16, 1), (16, 15), (16, 16), -- League of Legends: PC, iOS, Android
+(17, 1), (17, 2), (17, 3), (17, 6), (17, 7), (17, 9), -- FIFA 23: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(18, 1), (18, 2), (18, 3), (18, 6), (18, 7), -- Resident Evil Village: PC, PS5, PS4, Xbox Series, Xbox One
+(19, 1), (19, 2), (19, 3), (19, 6), (19, 7), (19, 9), -- Doom Eternal: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(20, 1), (20, 2), (20, 3), (20, 6), (20, 7), -- Sekiro: PC, PS5, PS4, Xbox Series, Xbox One
+(21, 2), (21, 3), -- Horizon Forbidden West: PS5, PS4
+(22, 2), (22, 3), (22, 1), -- Final Fantasy VII Remake: PS5, PS4, PC
+(23, 1), (23, 2), (23, 6), -- CyberConnect: PC, PS5, Xbox Series
+(24, 1), (24, 2), (24, 3), (24, 6), (24, 7), -- Sims 4: PC, PS5, PS4, Xbox Series, Xbox One
+(25, 1), -- Valorant: PC
+(26, 1), (26, 2), (26, 3), (26, 6), (26, 7), -- Elder Scrolls Online: PC, PS5, PS4, Xbox Series, Xbox One
+(27, 1), (27, 2), (27, 3), (27, 6), (27, 7), -- Warzone: PC, PS5, PS4, Xbox Series, Xbox One
+(28, 2), (28, 3), -- Last of Us 2: PS5, PS4
+(29, 1), (29, 2), (29, 3), (29, 6), (29, 7), (29, 9), -- Overwatch 2: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(30, 1), (30, 2), (30, 3), (30, 6), (30, 7), (30, 9), (30, 15), (30, 16), -- Stardew Valley: PC, PS5, PS4, Xbox Series, Xbox One, Switch, iOS, Android
+(31, 1), (31, 9), -- Monster Hunter Rise: PC, Switch
+(32, 1), (32, 2), (32, 3), (32, 6), (32, 7), (32, 9), -- No Man's Sky: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(33, 1), (33, 2), (33, 3), (33, 6), (33, 7), (33, 9), (33, 15), (33, 16), -- Terraria: PC, PS5, PS4, Xbox Series, Xbox One, Switch, iOS, Android
+(34, 1), (34, 2), (34, 3), (34, 6), (34, 7), -- Rainbow Six Siege: PC, PS5, PS4, Xbox Series, Xbox One
+(35, 1), (35, 2), (35, 3), (35, 9), -- Persona 5: PC, PS5, PS4, Switch
+(36, 1), (36, 3), (36, 7), -- Left 4 Dead 2: PC, PS4, Xbox One
+(37, 1), (37, 2), (37, 3), (37, 6), (37, 7), -- Hitman 3: PC, PS5, PS4, Xbox Series, Xbox One
+(38, 1), (38, 2), (38, 3), (38, 6), (38, 7), (38, 9), -- Dead by Daylight: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(39, 1), (39, 2), (39, 3), (39, 6), (39, 7), (39, 9), -- Little Nightmares II: PC, PS5, PS4, Xbox Series, Xbox One, Switch
+(40, 1), (40, 2), (40, 3), (40, 6), (40, 7), (40, 9); -- Fall Guys: PC, PS5, PS4, Xbox Series, Xbox One, Switch
 
