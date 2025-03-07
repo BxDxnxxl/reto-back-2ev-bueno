@@ -59,5 +59,12 @@ namespace Videojuegos.Controllers
             await _service.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("videojuego/{videojuegoId}")]
+        public async Task<ActionResult<List<ComentarioDto>>> GetComentariosByVideojuego(int videojuegoId)
+        {
+            var comentarios = await _service.GetComentariosByVideojuegoAsync(videojuegoId);
+            return Ok(comentarios);
+        }
     }
 }
