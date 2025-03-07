@@ -141,5 +141,45 @@ namespace Videojuegos.Repositories
                 }
             }
         }
+
+        public async Task<List<ComentarioDto>> GetComentariosByVideojuegoIdAsync(int videojuegoId)
+        {
+            var comentarios = new List<ComentarioDto>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"
+                    SELECT c.Id, c.Titulo, c.Texto, c.Fecha, c.Valoracion, c.Likes, c.Dislikes, u.Nombre
+                    FROM Comentarios c
+                    JOIN Usuarios u ON c.FkIdUsuario = u.Id
+                    WHERE c.FkIdVideojuego = @VideojuegoId
+                    ORDER BY c.Fecha DESC";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@VideojuegoId", videojuegoId);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            comentarios.Add(new ComentarioDto
+                            {
+                                Id = reader.GetInt32(0),
+                            Titulo = reader.GetString(1),
+                            Texto = reader.GetString(2),
+                            Fecha = reader.GetDateTime(3),
+                            Valoracion = reader.GetInt32(4),
+                            Likes = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                            Dislikes = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                            UsuarioNombre = reader.IsDBNull(7) ? "Usuario desconocido" : reader.GetString(7)
+
+                            });
+                        }
+                    }
+                }
+            }
+            return comentarios;
+        }
     }
 }
