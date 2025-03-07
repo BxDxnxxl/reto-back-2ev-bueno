@@ -39,5 +39,10 @@ namespace Videojuegos.Service
         {
             await _comentarioRepository.DeleteAsync(id);
         }
+
+        public async Task<List<ComentarioDto>> GetComentariosByVideojuegoAsync(int videojuegoId)
+        {
+            return await _comentarioRepository.GetComentariosByVideojuegoIdAsync(videojuegoId);
+        }
     }
 }
