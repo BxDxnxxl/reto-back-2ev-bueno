@@ -150,7 +150,7 @@ namespace Videojuegos.Repositories
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT c.Id, c.Titulo, c.Texto, c.Fecha, c.Valoracion, c.Likes, c.Dislikes, u.Nombre
+                    SELECT c.Id, c.Titulo, c.Texto, c.Fecha, c.Valoracion, c.Likes, c.Dislikes, u.username
                     FROM Comentarios c
                     JOIN Usuarios u ON c.FkIdUsuario = u.Id
                     WHERE c.FkIdVideojuego = @VideojuegoId
