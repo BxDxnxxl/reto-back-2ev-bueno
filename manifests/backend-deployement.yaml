@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: wannagames/docker-backend-deployement:00
+        image: bydaniel1111/docker-backend-deployement:00
         imagePullPolicy: Always
         ports:
         - containerPort: 80
