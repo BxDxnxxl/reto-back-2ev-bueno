@@ -29,7 +29,7 @@ services:
 
   api:
     container_name: apiContainer
-    image: bydaniel1111/docker-backend-deployement:01  
+    image: bydaniel1111/docker-backend-deployement:02  
     build:
       context: .
       dockerfile: Dockerfile  
