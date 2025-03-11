@@ -82,7 +82,14 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.Logger.LogInformation("No se usará HTTPS dentro del contenedor.");
+}
+else
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
