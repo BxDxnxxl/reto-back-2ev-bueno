@@ -29,7 +29,7 @@ services:
 
   api:
     container_name: apiContainer
-    image: reto2_api:1.0  
+    image: bydaniel1111/docker-backend-deployement:01  
     build:
       context: .
       dockerfile: Dockerfile  
