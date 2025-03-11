@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 var connectionString = builder.Configuration.GetConnectionString("VideojuegosDB")
     ?? throw new InvalidOperationException("Database connection string is missing.");
 
