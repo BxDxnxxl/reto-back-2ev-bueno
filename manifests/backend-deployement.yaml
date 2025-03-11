@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: bydaniel1111/docker-backend-deployement:03
+        image: bydaniel1111/docker-backend-deployement:04
         imagePullPolicy: Always
         ports:
         - containerPort: 80

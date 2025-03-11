@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 var connectionString = builder.Configuration.GetConnectionString("VideojuegosDB")
     ?? throw new InvalidOperationException("Database connection string is missing.");
 
@@ -68,6 +67,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.Logger.LogInformation("Servidor ASP.NET Core iniciado correctamente");
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
