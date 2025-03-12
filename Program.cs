@@ -66,6 +66,14 @@ builder.Services.AddCors(options =>
         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IComentarioService, ComentarioService>();
+builder.Services.AddScoped<ICompaniaService, CompaniaService>();
+builder.Services.AddScoped<IGeneroService, GeneroService>();
+builder.Services.AddScoped<IPlataformaService, PlataformaService>();
+builder.Services.AddScoped<IVideojuegoService, VideojuegoService>();
+
 var app = builder.Build();
 
 app.Logger.LogInformation("Servidor ASP.NET Core iniciado correctamente");
