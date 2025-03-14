@@ -52,6 +52,8 @@ builder.Services.AddScoped<IVideojuegoRepository, VideojuegoRepository>(provider
     new VideojuegoRepository(connectionString));
 builder.Services.AddScoped<ITokenRepository, TokenRepository>(provider =>
     new TokenRepository(connectionString));
+builder.Services.AddScoped<IIdeaRepository, IdeaRepository>(provider =>
+    new IdeaRepository(connectionString));
 
 // Inyección del TokenService con la clave secreta
 builder.Services.AddScoped<TokenService>(provider =>
@@ -79,6 +81,7 @@ builder.Services.AddScoped<ICompaniaService, CompaniaService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPlataformaService, PlataformaService>();
 builder.Services.AddScoped<IVideojuegoService, VideojuegoService>();
+builder.Services.AddScoped<IIdeaService, IdeaService>();
 
 var app = builder.Build();
 

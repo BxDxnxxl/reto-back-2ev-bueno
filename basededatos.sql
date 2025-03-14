@@ -80,6 +80,16 @@ CREATE TABLE Comentarios (
     FOREIGN KEY (fkIdVideojuego) REFERENCES Videojuegos(id) ON DELETE CASCADE
 );
 
+CREATE TABLE Ideas (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    fkIdUsuario INT NOT NULL,
+    titulo NVARCHAR(100) NOT NULL,
+    descripcion NVARCHAR(500) NOT NULL,
+    tipo NVARCHAR(50) NOT NULL,
+    fechaCreacion DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (fkIdUsuario) REFERENCES Usuarios(id) ON DELETE CASCADE
+);
+
 -- Inserts de Companias (correcto, sin cambios)
 INSERT INTO Companias (Nombre, url_imagen) VALUES 
 ('Nintendo', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Nintendo.svg'),          
@@ -119,6 +129,7 @@ INSERT INTO Companias (Nombre, url_imagen) VALUES
 -- Inserts de Usuarios (correcto, sin cambios)
 INSERT INTO Usuarios (Username, Email, contraseña, Nombre, Apellido1, Apellido2, ProfilePic)
 VALUES
+('anonimo', 'anonimo@anonimo.com', 'anonimo123', NULL, NULL, NULL, NULL),
 ('aaaaa', 'a@b.com', '123', NULL, NULL, NULL, NULL),
 ('eee', 'd@d.com', '123', NULL, NULL, NULL, NULL),
 ('eddd', 'f@g.com', '1234', NULL, NULL, NULL, NULL),
@@ -464,3 +475,10 @@ INSERT INTO VideojuegoPlataforma (fkIdVideojuego, fkIdPlataforma) VALUES
 (39, 1), (39, 2), (39, 3), (39, 6), (39, 7), (39, 9), -- Little Nightmares II: PC, PS5, PS4, Xbox Series, Xbox One, Switch
 (40, 1), (40, 2), (40, 3), (40, 6), (40, 7), (40, 9); -- Fall Guys: PC, PS5, PS4, Xbox Series, Xbox One, Switch
 
+INSERT INTO Ideas (fkIdUsuario, titulo, descripcion, tipo, fechaCreacion) 
+VALUES 
+(1, 'Nueva interfaz de usuario', 'Rediseñar la UI para mejorar la experiencia de usuario.', 'Mejora', GETDATE()),
+(2, 'Implementar dark mode', 'Agregar un modo oscuro para reducir la fatiga visual.', 'Mejora', GETDATE()),
+(3, 'Chat en tiempo real', 'Incorporar un chat en la plataforma para que los usuarios puedan interactuar.', 'Servicio', GETDATE()),
+(4, 'Integración con redes sociales', 'Permitir iniciar sesión y compartir contenido en redes sociales.', 'Producto', GETDATE()),
+(5, 'Sistema de recompensas', 'Crear un sistema de puntos y logros para motivar a los usuarios.', 'Otro', GETDATE());
