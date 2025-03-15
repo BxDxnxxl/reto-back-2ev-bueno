@@ -12,5 +12,6 @@ namespace Videojuegos.Service
         Task UpdateAsync(Comentario comentario);
         Task DeleteAsync(int id);
         Task<List<ComentarioDto>> GetComentariosByVideojuegoAsync(int videojuegoId);
+        Task<bool> UpdateLikesDislikesAsync(int comentarioId, bool isLike);
     }
 }

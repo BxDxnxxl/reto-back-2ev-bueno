@@ -66,5 +66,21 @@ namespace Videojuegos.Controllers
             var comentarios = await _service.GetComentariosByVideojuegoAsync(videojuegoId);
             return Ok(comentarios);
         }
+
+        [HttpPut("like/{id}")]
+        public async Task<IActionResult> LikeComentario(int id)
+        {
+            bool success = await _service.UpdateLikesDislikesAsync(id, true);
+            if (!success) return NotFound("Comentario no encontrado.");
+            return Ok("Like agregado con éxito.");
+        }
+
+        [HttpPut("dislike/{id}")]
+        public async Task<IActionResult> DislikeComentario(int id)
+        {
+            bool success = await _service.UpdateLikesDislikesAsync(id, false);
+            if (!success) return NotFound("Comentario no encontrado.");
+            return Ok("Dislike agregado con éxito.");
+        }
     }
 }
