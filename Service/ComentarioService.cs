@@ -44,5 +44,10 @@ namespace Videojuegos.Service
         {
             return await _comentarioRepository.GetComentariosByVideojuegoIdAsync(videojuegoId);
         }
+
+        public async Task<bool> UpdateLikesDislikesAsync(int comentarioId, bool isLike)
+        {
+            return await _comentarioRepository.UpdateLikesDislikesAsync(comentarioId, isLike);
+        }
     }
 }

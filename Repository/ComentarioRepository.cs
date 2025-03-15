@@ -181,5 +181,23 @@ namespace Videojuegos.Repositories
             }
             return comentarios;
         }
+
+        public async Task<bool> UpdateLikesDislikesAsync(int comentarioId, bool isLike)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                string query = isLike
+                    ? "UPDATE Comentarios SET Likes = Likes + 1 WHERE Id = @Id"
+                    : "UPDATE Comentarios SET Dislikes = Dislikes + 1 WHERE Id = @Id";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", comentarioId);
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+        }
     }
 }
